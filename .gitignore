@@ -13,3 +13,7 @@ hs_err_pid*
 
 .idea
 *.iml
+/Chess_Good/nbproject/private/
+nbproject
+*.xml
+*.mf
