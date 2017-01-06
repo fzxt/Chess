@@ -5,10 +5,6 @@
  */
 package com.company.board;
 
-/**
- *
- * @author il13eo
- */
 public enum MoveType {
     NORMAL,
     ATTACK,
