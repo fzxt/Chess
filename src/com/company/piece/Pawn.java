@@ -14,6 +14,9 @@ public class Pawn extends Piece {
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Move> moves = new ArrayList<>();
+        Point currPosition = super.getPosition();
+
+        throw new UnsupportedOperationException("En passant not implemented"); //To change body of generated methods, choose Tools | Templates.
     }
 }
