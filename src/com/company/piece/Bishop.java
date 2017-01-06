@@ -8,6 +8,7 @@ package com.company.piece;
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Move;
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -15,8 +16,8 @@ import java.util.ArrayList;
  * @author il13eo
  */
 public class Bishop extends Piece {
-    public Bishop(Team team, int value, PieceType type){
-        super(team, value, type);
+    public Bishop(Team team, int value, PieceType type, Point position){
+        super(team, value, type, position);
     }
 
     @Override

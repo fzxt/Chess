@@ -1,11 +1,13 @@
 package com.company.board;
 
+import java.awt.Point;
+
 public class Move {
-    private Position start;
-    private Position end;
+    private Point start;
+    private Point end;
     private MoveType type;
     
-    public Move(Position start, Position end, MoveType type){
+    public Move(Point start, Point end, MoveType type){
         this.start = start;
         this.end = end;
         this.type = type;
@@ -15,21 +17,11 @@ public class Move {
         return this.type;
     }
 
-    public Position getStart() {
+    public Point getStart() {
         return this.start;
     }
 
-    public Position getEnd() {
+    public Point getEnd() {
         return this.end;
-    }
-        
-    private class Position {
-        public int x;
-        public int y;
-        
-        public Position(int x, int y){
-            this.x = x;
-            this.y = y;
-        }
     }
 }

@@ -8,6 +8,7 @@ package com.company.piece;
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Move;
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +17,8 @@ import java.util.ArrayList;
  */
 public class King extends Piece {
 
-    public King(Team team, int value, PieceType type){
-        super(team, value, type);
+    public King(Team team, int value, PieceType type, Point position){
+        super(team, value, type, position);
     }
     
     @Override
