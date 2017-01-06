@@ -1,6 +1,7 @@
 package com.company.piece;
 
 import com.company.Team;
+import com.company.board.Board;
 import com.company.board.Move;
 
 import java.util.ArrayList;
@@ -29,5 +30,5 @@ public abstract class Piece {
         return this.value;
     }
     
-    public abstract ArrayList<Move> getAvailableMoves();
+    public abstract ArrayList<Move> getAvailableMoves(Board board);
 }

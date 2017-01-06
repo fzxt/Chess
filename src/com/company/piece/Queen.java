@@ -6,6 +6,7 @@
 package com.company.piece;
 
 import com.company.Team;
+import com.company.board.Board;
 import com.company.board.Move;
 import java.util.ArrayList;
 
@@ -18,9 +19,9 @@ public class Queen extends Piece {
     public Queen(Team team, int value, PieceType type){
         super(team, value, type);
     }
-    
+
     @Override
-    public ArrayList<Move> getAvailableMoves() {
+    public ArrayList<Move> getAvailableMoves(Board board) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
