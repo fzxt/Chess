@@ -10,15 +10,19 @@ public class Board {
 
     public Board() {
         board = new Tile[8][8];
-
-        board[0][0] = new Tile(new Rook(Team.BLACK, new Point(0, 0)));
-        board[0][1] = new Tile(new Knight(Team.BLACK, new Point(0, 1)));
-        board[0][2] = new Tile(new Bishop(Team.BLACK, new Point(0, 2)));
-        board[0][3] = new Tile(new King(Team.BLACK, new Point(0, 3)));
-        board[0][4] = new Tile(new Queen(Team.BLACK, new Point(0, 4)));
-        board[0][5] = new Tile(new Bishop(Team.BLACK, new Point(0, 5)));
-        board[0][6] = new Tile(new Knight(Team.BLACK, new Point(0, 6)));
-        board[0][7] = new Tile(new Rook(Team.BLACK, new Point(0, 7)));
+        for (int i = 0; i < 8; i+=7) {
+            Team team = i == 0 ? Team.BLACK : Team.WHITE;
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Tile(new Rook(team, new Point(i, j)));
+                board[i][j] = new Tile(new Knight(team, new Point(i, j)));
+                board[i][j] = new Tile(new Bishop(team, new Point(i, j)));
+                board[i][j] = new Tile(new King(team, new Point(i, j)));
+                board[i][j] = new Tile(new Queen(team, new Point(i, j)));
+                board[i][j] = new Tile(new Bishop(team, new Point(i, j)));
+                board[i][j] = new Tile(new Knight(team, new Point(i, j)));
+                board[i][j] = new Tile(new Rook(team, new Point(i, j)));
+            }
+        }
 
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
@@ -30,22 +34,13 @@ public class Board {
             board[1][y] = new Tile(new Pawn(Team.BLACK, new Point(1, y)));
             board[6][y] = new Tile(new Pawn(Team.BLACK, new Point(6, y)));
         }
-
-        board[7][0] = new Tile(new Rook(Team.BLACK, new Point(7, 0)));
-        board[7][1] = new Tile(new Knight(Team.BLACK, new Point(7, 1)));
-        board[7][2] = new Tile(new Bishop(Team.BLACK, new Point(7, 2)));
-        board[7][3] = new Tile(new King(Team.BLACK, new Point(7, 3)));
-        board[7][4] = new Tile(new Queen(Team.BLACK, new Point(7, 4)));
-        board[7][5] = new Tile(new Bishop(Team.BLACK, new Point(7, 5)));
-        board[7][6] = new Tile(new Knight(Team.BLACK, new Point(7, 6)));
-        board[7][7] = new Tile(new Rook(Team.BLACK, new Point(7, 7)));
     }
 
     public Tile[][] getBoard() {
         return this.board;
     }
-    
-    public Tile getTile(Point position){
+
+    public Tile getTile(Point position) {
         return this.board[position.x][position.y];
     }
 
