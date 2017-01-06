@@ -8,9 +8,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
-
-    public Pawn(Team team, int value, PieceType type, Point position) {
-        super(team, value, type, position);
+   
+    public Pawn(Team team, Point position) {
+        super(team, 1, PieceType.PAWN, position);
     }
 
     @Override

@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class Rook extends Piece{
 
-    public Rook(Team team, int value, PieceType type, Point position){
-        super(team, value, type, position);
+    public Rook(Team team, Point position){
+        super(team, 5, PieceType.ROOK, position);
     }
 
     @Override
