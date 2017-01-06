@@ -50,4 +50,9 @@ public abstract class Piece {
     }
 
     public abstract ArrayList<Move> getAvailableMoves(Board board);
+
+    @Override
+    public String toString() {
+        return getTeam() + " " + getType();
+    }
 }

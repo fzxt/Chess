@@ -40,7 +40,7 @@ public class Pawn extends Piece {
 
         for (Tile diagonalTile : diagonalTiles) {
             if (!diagonalTile.isEmpty() && diagonalTile.getPiece().getTeam() != getTeam()) {
-                moves.add(new Move(currPos, diagonalTile.getPosition(), MoveType.ATTACK));
+                moves.add(new Move(currPos, diagonalTile.getPiecePosition(), MoveType.ATTACK));
             }
         }
 

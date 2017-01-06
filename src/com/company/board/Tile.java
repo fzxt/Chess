@@ -24,7 +24,16 @@ public class Tile {
         return this.piece;
     }
 
-    public Point getPosition() {
+    public Point getPiecePosition() {
         return this.piece.getPosition();
+    }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "EMPTY";
+        } else {
+            return getPiece().toString();
+        }
     }
 }
