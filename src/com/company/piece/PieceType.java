@@ -5,10 +5,6 @@
  */
 package com.company.piece;
 
-/**
- *
- * @author il13eo
- */
 public enum PieceType {
     KING,
     QUEEN,

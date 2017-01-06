@@ -2,6 +2,8 @@ package com.company.board;
 
 import com.company.piece.Piece;
 
+import java.awt.*;
+
 public class Tile {
 
     private Piece piece;
@@ -20,5 +22,9 @@ public class Tile {
     
     public Piece getPiece() {
         return this.piece;
+    }
+
+    public Point getPosition() {
+        return this.piece.getPosition();
     }
 }

@@ -11,10 +11,6 @@ import com.company.board.Move;
 import java.awt.Point;
 import java.util.ArrayList;
 
-/**
- *
- * @author il13eo
- */
 public class Queen extends Piece {
 
     public Queen(Team team, Point position){
@@ -23,7 +19,7 @@ public class Queen extends Piece {
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

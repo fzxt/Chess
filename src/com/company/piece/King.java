@@ -11,10 +11,6 @@ import com.company.board.Move;
 import java.awt.Point;
 import java.util.ArrayList;
 
-/**
- *
- * @author il13eo
- */
 public class King extends Piece {
 
     public King(Team team, Point position){

@@ -8,10 +8,14 @@ public class Board {
 
     private Tile[][] board;
 
+    /**
+     * Constructor, initializes board.
+     */
     public Board() {
         board = new Tile[8][8];
         for (int i = 0; i < 8; i+=7) {
             Team team = i == 0 ? Team.BLACK : Team.WHITE;
+
             for (int j = 0; j < 8; j++) {
                 board[i][j] = new Tile(new Rook(team, new Point(i, j)));
                 board[i][j] = new Tile(new Knight(team, new Point(i, j)));
@@ -32,7 +36,7 @@ public class Board {
 
         for (int y = 0; y < 7; y++) {
             board[1][y] = new Tile(new Pawn(Team.BLACK, new Point(1, y)));
-            board[6][y] = new Tile(new Pawn(Team.BLACK, new Point(6, y)));
+            board[6][y] = new Tile(new Pawn(Team.WHITE, new Point(6, y)));
         }
     }
 
@@ -40,8 +44,8 @@ public class Board {
         return this.board;
     }
 
-    public Tile getTile(Point position) {
-        return this.board[position.x][position.y];
+    public Tile getTile(Point point) {
+        return this.board[point.x][point.y];
     }
 
 }

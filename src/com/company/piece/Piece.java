@@ -13,6 +13,7 @@ public abstract class Piece {
     private PieceType type;
     private int value;
     private Point position;
+    private int numMoves;
     
 
     public Piece(Team team, int value, PieceType type, Point position) {
@@ -20,6 +21,7 @@ public abstract class Piece {
         this.value = value;
         this.type = type;
         this.position = position;
+        this.numMoves = 0;
     }
     
     public Team getTeam(){
@@ -38,9 +40,14 @@ public abstract class Piece {
         return this.position;
     }
     
-    public void move(Move move){
+    public void move(Move move) {
+        this.numMoves++;
         throw new NotImplementedException();
     }
-    
+
+    public int getNumMoves() {
+        return numMoves;
+    }
+
     public abstract ArrayList<Move> getAvailableMoves(Board board);
 }
