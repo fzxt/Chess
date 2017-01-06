@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class King extends Piece {
 
-    public King(Team team, int value, PieceType type, Point position){
-        super(team, value, type, position);
+    public King(Team team, Point position){
+        super(team, 100, PieceType.KING, position);
     }
     
     @Override

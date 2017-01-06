@@ -16,8 +16,8 @@ import java.util.ArrayList;
  * @author il13eo
  */
 public class Bishop extends Piece {
-    public Bishop(Team team, int value, PieceType type, Point position){
-        super(team, value, type, position);
+    public Bishop(Team team, Point position){
+        super(team, 3, PieceType.BISHOP, position);
     }
 
     @Override

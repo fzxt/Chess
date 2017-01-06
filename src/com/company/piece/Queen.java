@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class Queen extends Piece {
 
-    public Queen(Team team, int value, PieceType type, Point position){
-        super(team, value, type, position);
+    public Queen(Team team, Point position){
+        super(team, 9, PieceType.QUEEN, position);
     }
 
     @Override
