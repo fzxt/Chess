@@ -10,7 +10,7 @@ public class Game {
 
     public Game() {
         // Initialization logic here
-        Piece p = new Pawn(Team.BLACK, 0, PieceType.PAWN, new Point(1, 1));
+        Piece p = new Pawn(Team.BLACK, new Point(1, 1));
         p.getAvailableMoves(new Board());
     }
 
