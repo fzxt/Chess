@@ -14,8 +14,11 @@ public class Tile {
         this.piece = piece;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return this.piece == null;
     }
-
+    
+    public Piece getPiece() {
+        return this.piece;
+    }
 }
