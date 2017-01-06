@@ -6,7 +6,6 @@ import com.company.board.Move;
 import java.util.ArrayList;
 
 public abstract class Piece {
-
     private Team team;
     private PieceType type;
     private int value;
