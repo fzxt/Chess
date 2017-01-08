@@ -22,8 +22,10 @@ public class Pawn extends Piece {
         int direction = getTeam() == Team.BLACK ? 1 : -1;
 
         Point singleMove = new Point(currPos.x, currPos.y + direction);
-        Point diagMoveLeft = new Point(currPos.x - 1, currPos.y + direction);
-        Point diagMoveRight = new Point(currPos.x + 1, currPos.y + direction);
+
+        // To ensure we don't let generate diagMoves when they are on the horizontal edges of the board (0, 7)
+        Point diagMoveLeft = currPos.x > 0 ? new Point(currPos.x - 1, currPos.y + (direction)) : null;
+        Point diagMoveRight = currPos.x < 7 ? new Point(currPos.x + 1, currPos.y + (direction)) : null;
 
         if (board.getTile(singleMove).isEmpty()) {
             Point doubleMove = new Point(currPos.x, currPos.y + (2 * direction));
@@ -34,13 +36,15 @@ public class Pawn extends Piece {
             }
         }
 
-        Tile diagLeftTile = board.getTile(diagMoveLeft);
-        Tile diagRightTile = board.getTile(diagMoveRight);
+        // If a diagonal move is possible, add the tiles and the check.
+        Tile diagLeftTile = diagMoveLeft != null ? board.getTile(diagMoveLeft) : null;
+        Tile diagRightTile = diagMoveRight != null ? board.getTile(diagMoveRight) : null;
+
         Tile[] diagonalTiles = { diagLeftTile, diagRightTile };
 
         for (Tile diagonalTile : diagonalTiles) {
-            if (!diagonalTile.isEmpty() && diagonalTile.getPiece().getTeam() != getTeam()) {
-                moves.add(new Move(currPos, diagonalTile.getPosition(), MoveType.ATTACK));
+            if (diagonalTile != null && !diagonalTile.isEmpty() && diagonalTile.getPiece().getTeam() != getTeam()) {
+                moves.add(new Move(currPos, diagonalTile.getPiecePosition(), MoveType.ATTACK));
             }
         }
 
