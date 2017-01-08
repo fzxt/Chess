@@ -7,6 +7,7 @@ package com.company.board;
 
 public enum MoveType {
     NORMAL,
+    NORMAL_DOUBLE,
     ATTACK,
     ENPASSANT,
     CASTLE
