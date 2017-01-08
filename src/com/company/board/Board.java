@@ -11,15 +11,6 @@ import static com.company.board.Tile.TILE_HIGHLIGHT.NONE;
 
 public class Board {
     private Tile[][] board;
-<<<<<<< HEAD
-
-    public Board() {
-        board = new Tile[8][8];
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i][j] = new Tile();
-=======
     /**
      * Constructor, initializes board.
      */
@@ -52,17 +43,8 @@ public class Board {
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = new Tile(new Point(j, i));
->>>>>>> master
             }
         }
-        board[1][4] = new Tile(new Pawn(Team.WHITE, new Point(1, 4)));
-        board[2][4] = new Tile(new Pawn(Team.BLACK, new Point(2, 4)));
-
-<<<<<<< HEAD
-        List<Move> moves = board[2][4].getPiece().getAvailableMoves(this);
-        System.out.println(moves);
-        System.out.println(this);
-=======
         for (int k = 0; k < 8; k++) {
             board[1][k] = new Tile(new Pawn(Team.BLACK, new Point(k, 1)));
             board[6][k] = new Tile(new Pawn(Team.WHITE, new Point(k, 6)));
@@ -75,7 +57,6 @@ public class Board {
         } else {
             white.addPiece(piece);
         }
->>>>>>> master
     }
 
     public Tile[][] getBoard() {
@@ -100,7 +81,6 @@ public class Board {
         }
     }
 
-<<<<<<< HEAD
     public boolean validPosition(Point position) {
         return (position.x >= 0 && position.x <= 7 && position.y >= 0 && position.y <= 7);
     }
@@ -124,6 +104,3 @@ public class Board {
         return sb.toString();
     }
 }
-=======
-}
->>>>>>> master
