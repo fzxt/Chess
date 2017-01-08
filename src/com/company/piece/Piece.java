@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 import java.util.Objects;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public abstract class Piece {
     private Team team;
     private PieceType type;
@@ -45,36 +43,37 @@ public abstract class Piece {
     public void move(Move move) {
         this.numMoves++;
         MoveHistory.addMove(move);
-        throw new NotImplementedException();
+        this.position = move.getEnd();
     }
 
     public int getNumMoves() {
         return numMoves;
     }
 
-    public ArrayList<Move> getMovesInLine(Board board, int[][] directionOffsets){
+    public ArrayList<Move> getMovesInLine(Board board, int[][] directionOffsets) {
         ArrayList<Move> moves = new ArrayList<>();
         for (int[] offset : directionOffsets) {
             int offsetX = offset[0];
             int offsetY = offset[1];
 
-            for (int i=1; i < 8; i++){
+            for (int i=1; i < 8; i++) {
                 Point possiblePos = new Point(getPosition().x + (i * offsetX), getPosition().y + (i * offsetY));
-                if (board.validPosition(possiblePos)){
+                if (board.validPosition(possiblePos)) {
                     Tile possibleTile = board.getTile(possiblePos);
-                    if (possibleTile.isEmpty()){
+                    if (possibleTile.isEmpty()) {
                         moves.add(createMove(possiblePos));
-                    }else {
+                    } else {
                         if (!sameTeam(possibleTile.getPiece())){
                             moves.add(createMove(possiblePos, MoveType.ATTACK));
                         }
                         break;
                     }
-                }else{
+                } else {
                     break;
                 }
             }
         }
+
         return moves;
     }
 
@@ -89,6 +88,10 @@ public abstract class Piece {
 
     public Move createMove(Point end){
         return new Move(this.position, end, MoveType.NORMAL);
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 
     public abstract ArrayList<Move> getAvailableMoves(Board board);

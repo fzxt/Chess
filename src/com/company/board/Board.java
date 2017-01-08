@@ -83,7 +83,7 @@ public class Board {
     }
 
     public Tile getTile(int x, int y) {
-        return this.board[x][y];
+        return this.board[y][x];
     }
 
     @Override

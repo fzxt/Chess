@@ -4,8 +4,7 @@ import com.company.board.Tile;
 
 import java.awt.*;
 
-import static com.company.board.Tile.TILE_TYPE.DARK;
-import static com.company.board.Tile.TILE_TYPE.LIGHT;
+import static com.company.board.Tile.TILE_TYPE.*;
 
 /**
  * Useful color constants.
@@ -57,8 +56,7 @@ public class ColorConstants {
 
     /**
      * Helper method to get the simulated alpha color.
-     * It adds the colors of the tile and the desired color together based on a factor.
-     * in order to simulate alpha.
+     * It adds the colors of the tile and the desired color together based on a factor, in order to simulate alpha.
      * @param tileType          Tile type, either LIGHT or DARK.
      * @param desiredColor      Desired color.
      * @return                  New simulated alpha color.

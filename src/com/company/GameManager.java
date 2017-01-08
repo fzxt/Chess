@@ -1,6 +1,9 @@
 package com.company;
 
 import com.company.board.Board;
+import com.company.piece.Piece;
+
+import java.awt.*;
 
 public class GameManager {
     private Player currentPlayer;
@@ -10,11 +13,14 @@ public class GameManager {
 
     private final Board board;
 
+    private Piece selectedPiece;
+
     public GameManager() {
         this.white = new Player(Team.WHITE);
         this.black = new Player(Team.BLACK);
         this.currentPlayer = white;
         this.board = new Board(white, black);
+        this.selectedPiece = null;
     }
 
     public Player getCurrentPlayer() {
@@ -23,6 +29,24 @@ public class GameManager {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Piece getSelectedPiece() {
+        return selectedPiece;
+    }
+
+    public void setSelectedPiece(Piece selectedPiece) {
+        this.selectedPiece = selectedPiece;
+    }
+
+    public void removePieceFromGame(Piece piece) {
+        if (white.pieces.contains(piece)) {
+            white.pieces.remove(piece);
+        } else if (black.pieces.contains(piece)) {
+            black.pieces.remove(piece);
+        }
+
+        piece.setPosition(new Point(-1, -1));
     }
 
     public void nextTurn() {

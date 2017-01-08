@@ -23,6 +23,7 @@ public class Tile {
     private final Point position;
     private TILE_TYPE color;
     private TILE_HIGHLIGHT highlight;
+    private Move move;
 
 
     private Piece piece;
@@ -33,6 +34,7 @@ public class Tile {
         this.color = (position.x % 2 == 0 && position.y % 2 == 0
                 || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_TYPE.LIGHT : TILE_TYPE.DARK;
         this.highlight = TILE_HIGHLIGHT.NONE;
+        this.move = null;
     }
 
     public Tile(Piece piece) {
@@ -73,6 +75,18 @@ public class Tile {
 
     public boolean isHighlighted() {
         return this.highlight != TILE_HIGHLIGHT.NONE;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public void setMove(Move move) {
+        this.move = move;
+    }
+
+    public Move getMove() {
+        return move;
     }
 
     @Override
