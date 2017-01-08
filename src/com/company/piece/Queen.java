@@ -30,9 +30,7 @@ public class Queen extends Piece {
                 {-1, 1} // diagUpLeft
         };
 
-        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
-
-        return moves;
+        return getMovesInLine(board, directionOffsets);
     }
     
 }

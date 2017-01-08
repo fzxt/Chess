@@ -35,12 +35,12 @@ public class Knight extends Piece {
                 generatePos(2, 1),
         };
 
-        for (Point possibleMove: possibleMoves){
-            if (board.validPosition(possibleMove)){
+        for (Point possibleMove: possibleMoves) {
+            if (board.validPosition(possibleMove)) {
                 Tile possibleTile = board.getTile(possibleMove);
-                if (possibleTile.isEmpty()){
+                if (possibleTile.isEmpty()) {
                     moves.add(createMove(possibleMove));
-                }else if (sameTeam(possibleTile.getPiece())){
+                } else if (!sameTeam(possibleTile.getPiece())) {
                     moves.add(createMove(possibleMove, MoveType.ATTACK));
                 }
             }

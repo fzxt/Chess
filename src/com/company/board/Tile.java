@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class Tile {
 
-    public enum TILE_COLOR {
+    public enum TILE_TYPE {
         LIGHT,
         DARK,
     }
@@ -21,7 +21,7 @@ public class Tile {
     }
 
     private final Point position;
-    private TILE_COLOR color;
+    private TILE_TYPE color;
     private TILE_HIGHLIGHT highlight;
 
 
@@ -31,7 +31,7 @@ public class Tile {
         this.piece = null;
         this.position = position;
         this.color = (position.x % 2 == 0 && position.y % 2 == 0
-                || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_COLOR.LIGHT : TILE_COLOR.DARK;
+                || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_TYPE.LIGHT : TILE_TYPE.DARK;
         this.highlight = TILE_HIGHLIGHT.NONE;
     }
 
@@ -39,11 +39,11 @@ public class Tile {
         this.piece = piece;
         this.position = piece.getPosition();
         this.color = (position.x % 2 == 0 && position.y % 2 == 0
-                || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_COLOR.LIGHT : TILE_COLOR.DARK;
+                || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_TYPE.LIGHT : TILE_TYPE.DARK;
         this.highlight = TILE_HIGHLIGHT.NONE;
     }
 
-    public TILE_COLOR getColor() {
+    public TILE_TYPE getColor() {
         return color;
     }
 
@@ -71,7 +71,7 @@ public class Tile {
         this.highlight = highlight;
     }
 
-    public boolean isHiglighted() {
+    public boolean isHighlighted() {
         return this.highlight != TILE_HIGHLIGHT.NONE;
     }
 

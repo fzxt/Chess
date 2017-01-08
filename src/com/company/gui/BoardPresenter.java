@@ -70,7 +70,7 @@ public class BoardPresenter implements GUIContract.Presenter {
                 board.unhighlightBoard();
                 view.updateBoard(board);
             }
-        } else if (tile.isHiglighted()) {
+        } else if (tile.isHighlighted()) {
             board.unhighlightBoard();
 
             // TODO: Make a move here.

@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public interface GUIContract {
-
     interface Presenter {
         /**
          * This will start to load the initial board. Called by the view.
@@ -37,7 +36,7 @@ public interface GUIContract {
 
         /**
          * This will show the board on the screen.
-         * @param board     board to show.
+         * @param board         board to show.
          */
         void showBoard(Board board);
 
@@ -48,13 +47,8 @@ public interface GUIContract {
 
         /**
          * Updates and redraw the board.
-         * @param board     new board.
+         * @param board         new board.
          */
         void updateBoard(Board board);
     }
-
-
-
-
-
 }

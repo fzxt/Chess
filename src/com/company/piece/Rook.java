@@ -28,8 +28,8 @@ public class Rook extends Piece{
                 {1, 0}, // Left
                 {-1, 0} // Right
         };
-        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
-        return moves;
+
+        return getMovesInLine(board, directionOffsets);
     }
     
 }

@@ -11,11 +11,15 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import static com.company.board.Tile.TILE_TYPE.*;
+import static com.company.gui.ColorConstants.*;
+
 
 public class GUIUtils {
 
     private HashMap<PieceType, String[]> map;
-    private String darkTile, lightTile;
+    private String darkTileImagePath, lightTileImagePath;
+
 
     public GUIUtils() {
         map = new HashMap<>();
@@ -25,8 +29,10 @@ public class GUIUtils {
         map.put(PieceType.QUEEN, new String[] { getImageIconFilePath("bq"), getImageIconFilePath("wq") } );
         map.put(PieceType.BISHOP, new String[] { getImageIconFilePath("bb"),getImageIconFilePath("wb") } );
         map.put(PieceType.KNIGHT, new String[] { getImageIconFilePath("bn"), getImageIconFilePath("wn") } );
-        darkTile = "../../resources/dark.png";
-        lightTile = "../../resources/light.png";
+
+
+        darkTileImagePath = "../../resources/dark.png";
+        lightTileImagePath = "../../resources/light.png";
     }
 
     public String getImageIconFilePath(String resourceName) {
@@ -44,61 +50,65 @@ public class GUIUtils {
         }
     }
 
-    public String getTileIcon(Tile.TILE_COLOR tileType) {
+    public String getTileIconPath(Tile.TILE_TYPE tileType) {
         switch (tileType) {
             case LIGHT:
-                return lightTile;
+                return lightTileImagePath;
             case DARK:
-                return darkTile;
+                return darkTileImagePath;
             default:
-                return lightTile;
+                return lightTileImagePath;
         }
     }
 
-    public Color getHighlightColor(Tile.TILE_HIGHLIGHT highlight) {
+    /**
+     * Get array of highlight colors with simulated alpha.
+     * @param tileType     Tile type, either LIGHT or DARK.
+     * @param highlight    Highlight of the tile.
+     * @return             Array of colors with 2 colors, 0th index is inner fill color, 1st index is border color.
+     */
+    private Color[] getHighlightColors(Tile.TILE_TYPE tileType, Tile.TILE_HIGHLIGHT highlight) {
         switch (highlight) {
             case BLUE:
-                return new Color(187, 222, 251);
+                return tileType == LIGHT ? normalColorsLightTile : normalColorsDarkTile;
             case YELLOW:
-                return new Color(255, 241, 118);
+                return tileType == LIGHT ? specialColorsLightTile : specialColorsDarkTile;
             case RED:
-                return new Color(255, 171, 145);
+                return tileType == LIGHT ? attackColorsLightTile : attackColorsDarkTile;
             case GREEN:
-                return new Color(128,203,196);
+                return tileType == LIGHT ? selectedColorsLightTile : selectedColorsDarkTile;
             case NONE:
             default:
-                return new Color(0, 0, 0);
+                return new Color[]{ new Color(0, 0, 0), new Color(0, 0, 0)};
         }
     }
 
-    public Color getOuterHighlightColor(Tile.TILE_HIGHLIGHT highlight) {
-        switch (highlight) {
-            case BLUE:
-                return new Color(150, 219, 239);
-            case YELLOW:
-                return new Color(240, 220, 100);
-            case RED:
-                return new Color(255, 140, 130);
-            case GREEN:
-                return new Color(102, 162, 156);
-            case NONE:
-            default:
-                return new Color(0, 0, 0);
-        }
-    }
-
-    public BufferedImage getHighlighted(BufferedImage tileImage, Tile.TILE_HIGHLIGHT highlight) {
+    /**
+     * Get highlighted image of tile to draw. Alters a provided image tile.
+     * @param tileType     Type of tile.
+     * @param tileImage    Image of tile to alter.
+     * @param highlight    Color to highlight tile.
+     * @return             Image of a highlighted tile.
+     */
+    public BufferedImage getHighlighted(Tile.TILE_TYPE tileType, BufferedImage tileImage, Tile.TILE_HIGHLIGHT highlight) {
         Graphics2D g2 = tileImage.createGraphics();
         Rectangle2D rect = new Rectangle2D.Double(15, 0, tileImage.getWidth(), tileImage.getHeight());
-        g2.setColor(getHighlightColor(highlight));
+        Color[] highlightColors = getHighlightColors(tileType, highlight);
+        g2.setColor(highlightColors[0]);
         g2.fill(rect);
-        g2.setColor(getOuterHighlightColor(highlight));
+        g2.setColor(highlightColors[1]);
         g2.setStroke(new BasicStroke(10));
         g2.draw(rect);
         g2.dispose();
         return tileImage;
     }
 
+    /**
+     * Gets the TilePanel component associated with the mouse event.
+     * @param tiles     Array of TilePanels to search from.
+     * @param e         Mouse event (click, hover, drag, etc).
+     * @return          Tile that was clicked, hovered, dragged upon etc.
+     */
     public Tile getRelevantTile(TilePanel[][] tiles, MouseEvent e) {
         Tile relevantTile = null;
 
@@ -113,5 +123,4 @@ public class GUIUtils {
 
         return relevantTile;
     }
-
 }
