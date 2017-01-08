@@ -12,7 +12,7 @@ public class Move {
         this.end = end;
         this.type = type;
     }
-    
+
     public MoveType getType() {
         return this.type;
     }
@@ -23,5 +23,10 @@ public class Move {
 
     public Point getEnd() {
         return this.end;
+    }
+
+    @Override
+    public String toString() {
+        return "S: " + start + "\t E: " + end;
     }
 }

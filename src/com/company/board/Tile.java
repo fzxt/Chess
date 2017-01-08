@@ -1,5 +1,6 @@
 package com.company.board;
 
+import com.company.Team;
 import com.company.piece.Piece;
 
 import java.awt.Point;
@@ -81,5 +82,14 @@ public class Tile {
         } else {
             return getPiece().toString();
         }
+    }
+
+    @Override
+    public String toString() {
+        String team = " ";
+        if (!isEmpty()){
+            team = this.piece.getTeam() == Team.BLACK ? "b" : "w";
+        }
+        return this.piece == null ? team + "NULL" : team + this.piece.getType().toString();
     }
 }

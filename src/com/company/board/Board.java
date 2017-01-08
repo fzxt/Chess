@@ -3,12 +3,13 @@ package com.company.board;
 import com.company.Player;
 import com.company.Team;
 import com.company.piece.*;
+
 import java.awt.Point;
+import java.util.List;
 
 import static com.company.board.Tile.TILE_HIGHLIGHT.NONE;
 
 public class Board {
-
     private Tile[][] board;
     /**
      * Constructor, initializes board.
@@ -44,7 +45,6 @@ public class Board {
                 board[i][j] = new Tile(new Point(j, i));
             }
         }
-
         for (int k = 0; k < 8; k++) {
             board[1][k] = new Tile(new Pawn(Team.BLACK, new Point(k, 1)));
             board[6][k] = new Tile(new Pawn(Team.WHITE, new Point(k, 6)));
@@ -81,4 +81,26 @@ public class Board {
         }
     }
 
+    public boolean validPosition(Point position) {
+        return (position.x >= 0 && position.x <= 7 && position.y >= 0 && position.y <= 7);
+    }
+
+    public Tile getTile(int x, int y) {
+        return this.board[x][y];
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < board.length; i++) {
+            sb.append("");
+            sb.append("-----------------------------------------------------------------\n");
+            for (int j = 0; j < board[i].length; j++) {
+                sb.append("| " + board[j][i] + " ");
+            }
+            sb.append("|\n");
+        }
+        sb.append("-----------------------------------------------------------------\n");
+        return sb.toString();
+    }
 }
