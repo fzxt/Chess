@@ -1,20 +1,21 @@
 package com.company;
 
 import com.company.board.Board;
-import com.company.piece.Pawn;
-import com.company.piece.Piece;
-import com.company.piece.PieceType;
-import java.awt.Point;
+import com.company.gui.BoardPresenter;
+import com.company.gui.BoardView;
+
+import javax.swing.*;
 
 public class Game {
 
+    GameManager gameManager;
+
     public Game() {
-        // Initialization logic here
-        Piece p = new Pawn(Team.BLACK, new Point(1, 1));
-        p.getAvailableMoves(new Board());
+        GameManager gameManager = new GameManager();
+        new BoardPresenter(new BoardView(), gameManager);
     }
 
     public static void main(String[] args) {
-        new Game();
+        SwingUtilities.invokeLater(Game::new);
     }
 }
