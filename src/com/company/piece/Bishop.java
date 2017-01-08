@@ -21,39 +21,15 @@ public class Bishop extends Piece {
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        ArrayList<Move> moves = new ArrayList<>();
-        ArrayList<Move>[] directions = new ArrayList[]{
-                generateMoves(board, 1, 1),
-                generateMoves(board, -1, -1),
-                generateMoves(board, 1, -1),
-                generateMoves(board, -1, 1)
+        int[][] directionOffsets = {
+                {1, 1}, // diagUpRight
+                {-1, -1}, // diagDownLeft
+                {1, -1}, // diagDownRight
+                {-1, 1} // diagUpLeft
         };
 
-        for(ArrayList<Move> directionMoves: directions){
-            moves.addAll(directionMoves);
-        }
+        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
 
-        System.out.println(moves.size());
-        return moves;
-    }
-
-    private ArrayList<Move> generateMoves(Board board, int x, int y) {
-        ArrayList<Move> moves = new ArrayList<>();
-
-        for (int i = 1; i < 8; i++) {
-            Point possiblePos = new Point(getPosition().x + (i * x),getPosition().y + (i * y));
-            if (board.validPosition(possiblePos)){
-                Tile possibleTile = board.getTile(possiblePos);
-                if (possibleTile.isEmpty()){
-                    moves.add(createMove(possiblePos));
-                }else if(!sameTeam(possibleTile.getPiece())){
-                    moves.add(createMove(possiblePos, MoveType.ATTACK));
-                    break;
-                }
-            }else{
-                break;
-            }
-        }
         return moves;
     }
 }
