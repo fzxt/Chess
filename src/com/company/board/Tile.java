@@ -77,15 +77,6 @@ public class Tile {
 
     @Override
     public String toString() {
-        if (isEmpty()) {
-            return "EMPTY";
-        } else {
-            return getPiece().toString();
-        }
-    }
-
-    @Override
-    public String toString() {
         String team = " ";
         if (!isEmpty()){
             team = this.piece.getTeam() == Team.BLACK ? "b" : "w";
