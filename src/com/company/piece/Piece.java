@@ -6,6 +6,8 @@ import com.company.board.Move;
 import java.awt.Point;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class Piece {
@@ -50,4 +52,19 @@ public abstract class Piece {
     }
 
     public abstract ArrayList<Move> getAvailableMoves(Board board);
+
+    @Override
+    public String toString() {
+        return getTeam() + " " + getType();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Piece && this.team == ((Piece) obj).team && this.type == ((Piece) obj).type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this);
+    }
 }
