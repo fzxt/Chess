@@ -8,6 +8,7 @@ package com.company.piece;
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Move;
+import com.company.board.MoveType;
 import com.company.board.Tile;
 
 import java.awt.Point;
@@ -24,14 +25,14 @@ public class Knight extends Piece {
         ArrayList<Move> moves = new ArrayList<>();
 
         Point[] possibleMoves = {
-                generateMove(-1, -2),
-                generateMove(1, -2),
-                generateMove(-1, 2),
-                generateMove(1, 2),
-                generateMove(-2, -1),
-                generateMove(2, -1),
-                generateMove(-2, 1),
-                generateMove(2, 1),
+                generatePos(-1, -2),
+                generatePos(1, -2),
+                generatePos(-1, 2),
+                generatePos(1, 2),
+                generatePos(-2, -1),
+                generatePos(2, -1),
+                generatePos(-2, 1),
+                generatePos(2, 1),
         };
 
         for (Point possibleMove: possibleMoves){
@@ -39,15 +40,15 @@ public class Knight extends Piece {
                 Tile possibleTile = board.getTile(possibleMove);
                 if (possibleTile.isEmpty()){
                     moves.add(createMove(possibleMove));
-                }else if (possibleTile.getPiece().getTeam() != getTeam()){
-                    moves.add(createMove(possibleMove));
+                }else if (sameTeam(possibleTile.getPiece())){
+                    moves.add(createMove(possibleMove, MoveType.ATTACK));
                 }
             }
         }
         return moves;
     }
 
-    private Point generateMove(int x, int y) {
+    private Point generatePos(int x, int y) {
         Point currPos = getPosition();
         return new Point(currPos.x + x, currPos.y + y);
     }
