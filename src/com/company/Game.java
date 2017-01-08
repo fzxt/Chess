@@ -3,21 +3,19 @@ package com.company;
 import com.company.board.Board;
 import com.company.gui.BoardPresenter;
 import com.company.gui.BoardView;
-import com.company.piece.Pawn;
-import com.company.piece.Piece;
-import com.company.piece.PieceType;
 
 import javax.swing.*;
-import java.awt.Point;
 
 public class Game {
 
+    GameManager gameManager;
+
     public Game() {
-        // Initialization logic here
-        new BoardPresenter(new BoardView(), new Board());
+        GameManager gameManager = new GameManager();
+        new BoardPresenter(new BoardView(), gameManager);
     }
 
     public static void main(String[] args) {
-        new Game();
+        SwingUtilities.invokeLater(Game::new);
     }
 }

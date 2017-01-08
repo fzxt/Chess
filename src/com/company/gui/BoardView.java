@@ -1,19 +1,20 @@
 package com.company.gui;
 
-import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.gui.component.TilePanel;
-import com.company.piece.Piece;
 
 import javax.swing.*;
-import java.awt.*;
 
-import static com.company.gui.GUIUtils.*;
+import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class BoardView implements GUIContract.View {
+public class BoardView extends MouseAdapter implements GUIContract.View  {
 
-    private final JPanel panel;
+    private JPanel panel;
     private GUIContract.Presenter presenter;
 
     private final JFrame frame;
@@ -45,26 +46,31 @@ public class BoardView implements GUIContract.View {
     }
 
     @Override
+    public void updateBoard(Board newBoard) {
+        frame.getContentPane().removeAll();
+        panel = new JPanel(new GridLayout(8, 8));
+        showBoard(newBoard);
+        frame.getContentPane().add(panel);
+        frame.pack();
+    }
+
+    @Override
     public void showBoard(Board board) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                boolean bothColumnRowEven = (i % 2 == 0 && j % 2 == 0);
-                boolean bothColumnRowOdd = (i % 2 == 1 && j % 2 == 1);
-                TILE_TYPE tileType = (bothColumnRowEven || bothColumnRowOdd) ? TILE_TYPE.LIGHT : TILE_TYPE.DARK;
-
-                Tile tile = board.getTile(new Point(i, j));
-
-                if (tile.isEmpty()) {
-                    tiles[i][j] = new TilePanel(GUIUtils.getTileIcon(tileType));
-                } else {
-                    Piece tilePiece = tile.getPiece();
-                    tiles[i][j] = new TilePanel(GUIUtils.getTileIcon(tileType),
-                            GUIUtils.getPieceIcon(tilePiece.getTeam(), tilePiece.getType()));
-                }
-
+                Tile tile = board.getTile(new Point(j, i));
+                tiles[i][j] = new TilePanel(tile);
+                tiles[i][j].addMouseListener(this);
                 panel.add(tiles[i][j]);
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        Tile tileClicked = GUIUtils.getRelevantTile(tiles, e);
+        presenter.handleClickedTile(tileClicked);
     }
 }
 
