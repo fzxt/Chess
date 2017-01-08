@@ -8,16 +8,28 @@ package com.company.piece;
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Move;
+import com.company.board.MoveType;
+import com.company.board.Tile;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
-    public Bishop(Team team, Point position){
+    public Bishop(Team team, Point position) {
         super(team, 3, PieceType.BISHOP, position);
     }
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[][] directionOffsets = {
+                {1, 1}, // diagUpRight
+                {-1, -1}, // diagDownLeft
+                {1, -1}, // diagDownRight
+                {-1, 1} // diagUpLeft
+        };
+
+        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
+
+        return moves;
     }
 }

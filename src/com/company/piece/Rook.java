@@ -8,6 +8,9 @@ package com.company.piece;
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Move;
+import com.company.board.MoveType;
+import com.company.board.Tile;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -19,8 +22,14 @@ public class Rook extends Piece{
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[][] directionOffsets = {
+                {0, 1}, // Up
+                {0, -1}, // Down
+                {1, 0}, // Left
+                {-1, 0} // Right
+        };
+        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
+        return moves;
     }
     
 }

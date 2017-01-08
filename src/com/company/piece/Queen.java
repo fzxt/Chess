@@ -19,7 +19,20 @@ public class Queen extends Piece {
 
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int[][] directionOffsets = {
+                {0, 1}, // Up
+                {0, -1}, // Down
+                {1, 0}, // Left
+                {-1, 0}, // Right
+                {1, 1}, // diagUpRight
+                {-1, -1}, // diagDownLeft
+                {1, -1}, // diagDownRight
+                {-1, 1} // diagUpLeft
+        };
+
+        ArrayList<Move> moves = getMovesInLine(board, directionOffsets);
+
+        return moves;
     }
     
 }
