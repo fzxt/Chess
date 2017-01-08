@@ -5,15 +5,13 @@ import com.company.Team;
 import com.company.piece.*;
 
 import java.awt.Point;
-import java.util.List;
 
 import static com.company.board.Tile.TILE_HIGHLIGHT.NONE;
 
 public class Board {
+
     private Tile[][] board;
-    /**
-     * Constructor, initializes board.
-     */
+
     public Board(Player white, Player black) {
         board = new Tile[8][8];
 
@@ -27,18 +25,8 @@ public class Board {
             board[i][5] = new Tile(new Bishop(team, new Point(5, i)));
             board[i][6] = new Tile(new Knight(team, new Point(6, i)));
             board[i][7] = new Tile(new Rook(team, new Point(7, i)));
-
-
-            // TODO: Think of a better solution
-            givePieceToCorrectPlayer(board[i][0].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][1].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][2].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][3].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][4].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][5].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][6].getPiece(), black, white);
-            givePieceToCorrectPlayer(board[i][7].getPiece(), black, white);
         }
+
 
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
@@ -49,13 +37,22 @@ public class Board {
             board[1][k] = new Tile(new Pawn(Team.BLACK, new Point(k, 1)));
             board[6][k] = new Tile(new Pawn(Team.WHITE, new Point(k, 6)));
         }
+
+        givePiecesToPlayers(white, black);
     }
 
-    private void givePieceToCorrectPlayer(Piece piece, Player black, Player white) {
-        if (piece.getTeam() == Team.BLACK) {
-            black.addPiece(piece);
-        } else {
-            white.addPiece(piece);
+    private void givePiecesToPlayers(Player white, Player black) {
+        int[] rows = {0, 1, 6, 7};
+
+        for (int row : rows) {
+            for (int i = 0; i < 8; i++) {
+                Piece piece = board[row][i].getPiece();
+                if (piece.getTeam() == Team.BLACK){
+                    black.addPiece(piece);
+                } else {
+                    white.addPiece(piece);
+                }
+            }
         }
     }
 
