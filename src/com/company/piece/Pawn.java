@@ -66,6 +66,7 @@ public class Pawn extends Piece {
         }
 
         // TODO: Implement pawn promotion
+        System.err.println("Pawn promotion not yet implemented!");
         return moves;
     }
 
