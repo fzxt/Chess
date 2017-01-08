@@ -50,6 +50,7 @@ public class BoardPresenter implements GUIContract.Presenter {
 
                     switch (move.getType()) {
                         case NORMAL:
+                        case NORMAL_DOUBLE:
                             moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.BLUE);
                             break;
                         case ATTACK:
