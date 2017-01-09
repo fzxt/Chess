@@ -22,37 +22,44 @@ public class ColorConstants {
     private static final Color darkTileColor = new Color(145, 103, 69);
     private static final Color lightTileColor = new Color(230, 179, 136);
 
-    static final Color[] normalColorsLightTile = new Color[] {
+    static final Color[] normalColorsLightTile = {
             getSimulatedAlphaColor(LIGHT, lightBlueFill),
-            getSimulatedAlphaColor(LIGHT, darkBlueOuter)};
+            getSimulatedAlphaColor(LIGHT, darkBlueOuter)
+    };
 
-    static final Color[] normalColorsDarkTile = new Color[] {
+    static final Color[] normalColorsDarkTile = {
             getSimulatedAlphaColor(DARK, lightBlueFill),
-            getSimulatedAlphaColor(DARK, darkBlueOuter)};
+            getSimulatedAlphaColor(DARK, darkBlueOuter)
+    };
 
-    static final Color[] specialColorsLightTile = new Color[] {
+    static final Color[] specialColorsLightTile = {
             getSimulatedAlphaColor(LIGHT, lightYellowFill),
-            getSimulatedAlphaColor(LIGHT, darkYellowOuter)};
+            getSimulatedAlphaColor(LIGHT, darkYellowOuter)
+    };
 
-    static final Color[] specialColorsDarkTile = new Color[] {
+    static final Color[] specialColorsDarkTile = {
             getSimulatedAlphaColor(DARK, lightYellowFill),
             getSimulatedAlphaColor(DARK, darkYellowOuter)};
 
-    static final Color[] attackColorsLightTile = new Color[] {
+    static final Color[] attackColorsLightTile = {
             getSimulatedAlphaColor(LIGHT, lightRedFill),
-            getSimulatedAlphaColor(LIGHT, darkRedOuter)};
+            getSimulatedAlphaColor(LIGHT, darkRedOuter)
+    };
 
-    static final Color[] attackColorsDarkTile = new Color[] {
+    static final Color[] attackColorsDarkTile = {
             getSimulatedAlphaColor(DARK, lightRedFill),
-            getSimulatedAlphaColor(DARK, darkRedOuter)};
+            getSimulatedAlphaColor(DARK, darkRedOuter)
+    };
 
-    static final Color[] selectedColorsLightTile = new Color[] {
+    static final Color[] selectedColorsLightTile = {
             getSimulatedAlphaColor(LIGHT, lightGreenFill),
-            getSimulatedAlphaColor(LIGHT, darkGreenOuter)};
+            getSimulatedAlphaColor(LIGHT, darkGreenOuter)
+    };
 
-    static final Color[] selectedColorsDarkTile = new Color[] {
+    static final Color[] selectedColorsDarkTile = {
             getSimulatedAlphaColor(DARK, lightGreenFill),
-            getSimulatedAlphaColor(DARK, darkGreenOuter)};
+            getSimulatedAlphaColor(DARK, darkGreenOuter)
+    };
 
     /**
      * Helper method to get the simulated alpha color.

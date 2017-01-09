@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.board.Board;
+import com.company.board.Tile;
 import com.company.piece.Piece;
 
 import java.awt.*;
@@ -49,8 +50,19 @@ public class GameManager {
         piece.setPosition(new Point(-1, -1));
     }
 
+    public void unhighlightBoard() {
+        board.unhighlightBoard();
+    }
+
+    public void setTile(Point point, Tile tile) {
+        board.setTile(point, tile);
+    }
+
     public void nextTurn() {
         currentPlayer = currentPlayer == white ? black : white;
     }
 
+    public Tile getTile(int x, int i) {
+        return getBoard().getTile(x, i);
+    }
 }
