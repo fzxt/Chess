@@ -4,12 +4,13 @@ import com.company.board.Tile;
 import com.company.move.Move;
 import com.company.move.NormalMove;
 import com.company.piece.Pawn;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class PawnTest {
     // TODO: Test for EnPassant

@@ -8,7 +8,7 @@ import com.company.move.NormalMove;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtils {
 

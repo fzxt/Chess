@@ -3,7 +3,7 @@ import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.move.Move;
 import com.company.piece.Queen;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
