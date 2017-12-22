@@ -2,8 +2,8 @@ package com.company.gui;
 
 import com.company.GameManager;
 import com.company.Player;
-import com.company.Team;
 import com.company.board.*;
+import com.company.move.Move;
 import com.company.piece.Piece;
 
 import java.awt.*;
@@ -33,111 +33,41 @@ public class BoardPresenter implements GUIContract.Presenter {
     public void handleClickedTile(Tile tile) {
         if (!tile.isEmpty() && !tile.isHighlighted()) {
             // It means they clicked a tile with a piece and it's not highlighted, show available moves
-            handleAvailableMoves(tile);
+            gameManager.unhighlightBoard();
+            Player currentPlayer = gameManager.getCurrentPlayer();
+            Piece piece = tile.getPiece();
+
+            if (currentPlayer.getTeam() == piece.getTeam()) {
+                showAvailableMoves(piece);
+                gameManager.setSelectedPiece(piece);
+            }
+
+            view.updateBoard(gameManager.getBoard());
         } else if (tile.isHighlighted() && tile.getHighlight() != Tile.TILE_HIGHLIGHT.GREEN) {
             // It means they clicked a tile with a piece that is highlighted, i.e an attacking move.
             // Or they clicked a tile without a piece that is highlighted
             Move move = tile.getMove();
-
-            switch (move.getType()) {
-                case NORMAL:
-                case NORMAL_DOUBLE:
-                    handleNormalMove(tile);
-                    break;
-                case ATTACK:
-                case ENPASSANT:
-                    handleAttack(tile);
-                    break;
-
-            }
+            move.handleMove(gameManager, tile);
+            gameManager.unhighlightBoard();
+            gameManager.nextTurn();
+            view.updateBoard(gameManager.getBoard());
         } else {
             gameManager.unhighlightBoard();
             view.updateBoard(gameManager.getBoard());
         }
+
     }
 
-
-
-    private void handleAvailableMoves(Tile tile) {
-        Piece piece = tile.getPiece();
-        Player currentPlayer = gameManager.getCurrentPlayer();
-        gameManager.unhighlightBoard();
-        // If they clicked their own piece AND it's their turn, they want to move it, show the moves.
-        if (currentPlayer.getTeam() == piece.getTeam()) {
-
-            for (Move move : piece.getAvailableMoves(gameManager.getBoard())) {
-                Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
-                Tile startTile = gameManager.getBoard().getTile(piece.getPosition());
-                startTile.setHighlight(Tile.TILE_HIGHLIGHT.GREEN);
-                Tile moveableTile = gameManager.getBoard().getTile(movePoint);
-
-                switch (move.getType()) {
-                    case NORMAL:
-                    case NORMAL_DOUBLE:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.BLUE);
-                        break;
-                    case ATTACK:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.RED);
-                        break;
-                    case ENPASSANT:
-                    case CASTLE:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.YELLOW);
-                        break;
-                }
-
-                moveableTile.setMove(move);
-                gameManager.setTile(movePoint, moveableTile);
-            }
-
-            gameManager.setSelectedPiece(piece);
+    private void showAvailableMoves(Piece piece) {
+        for (Move move : piece.getAvailableMoves(gameManager.getBoard())) {
+            System.out.println(move);
+            Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
+            Tile startTile = gameManager.getBoard().getTile(piece.getPosition());
+            startTile.setHighlight(Tile.TILE_HIGHLIGHT.GREEN);
+            Tile target = gameManager.getBoard().getTile(movePoint);
+            target.setHighlight(move.getTileHighlight());
+            target.setMove(move);
+            gameManager.setTile(movePoint, target);
         }
-
-        view.updateBoard(gameManager.getBoard());
     }
-
-    private void handleNormalMove(Tile tileToMoveTo) {
-        makeMove(tileToMoveTo);
-        // Finally unhighlight the board and update.
-        gameManager.unhighlightBoard();
-        view.updateBoard(gameManager.getBoard());
-        gameManager.nextTurn();
-    }
-
-    private void handleAttack(Tile tileToMoveTo) {
-        Point tilePos = tileToMoveTo.getPosition();
-        Piece attackedPiece = null;
-
-        if (tileToMoveTo.getMove().getType() == MoveType.ATTACK) {
-            attackedPiece = tileToMoveTo.getPiece();
-        }
-
-        makeMove(tileToMoveTo);
-
-        if (tileToMoveTo.getMove().getType() == MoveType.ENPASSANT) {
-            int direction = gameManager.getCurrentPlayer().getTeam() == Team.WHITE ? 1 : -1;
-            attackedPiece = gameManager.getTile(tilePos.x, tilePos.y+direction).getPiece();
-            gameManager.setTile(attackedPiece.getPosition(), new Tile(attackedPiece.getPosition()));
-        }
-
-        gameManager.removePieceFromGame(attackedPiece);
-
-        // Finally unhighlight the board and update.
-        gameManager.getBoard().unhighlightBoard();
-        view.updateBoard(gameManager.getBoard());
-        gameManager.nextTurn();
-    }
-
-    private void makeMove(Tile tileToMoveTo) {
-        Move move = tileToMoveTo.getMove();
-        Piece pieceToMove = gameManager.getSelectedPiece();
-
-        // 1. Set the piece to move tile to empty.
-        gameManager.getBoard().setTile(pieceToMove.getPosition(), new Tile(pieceToMove.getPosition()));
-
-        // 2. Set the move location tile to the piece.
-        pieceToMove.move(move);
-        tileToMoveTo.setPiece(pieceToMove);
-        gameManager.setTile(tileToMoveTo.getPosition(), tileToMoveTo);
-    }
-
 }

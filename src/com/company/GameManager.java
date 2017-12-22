@@ -42,9 +42,9 @@ public class GameManager {
 
     public void removePieceFromGame(Piece piece) {
         if (white.pieces.contains(piece)) {
-            white.pieces.remove(piece);
+            white.removePiece(piece);
         } else if (black.pieces.contains(piece)) {
-            black.pieces.remove(piece);
+            black.removePiece(piece);
         }
 
         piece.setPosition(new Point(-1, -1));

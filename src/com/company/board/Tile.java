@@ -1,6 +1,7 @@
 package com.company.board;
 
 import com.company.Team;
+import com.company.move.Move;
 import com.company.piece.Piece;
 
 import java.awt.Point;

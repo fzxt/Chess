@@ -17,11 +17,10 @@ public class TilePanel extends JPanel {
     private BufferedImage pieceImage;
     private BufferedImage tileImage;
     private Tile tile;
-    private GUIUtils utils;
 
     public TilePanel(Tile tile) {
         try {
-            this.utils = new GUIUtils();
+            GUIUtils utils = new GUIUtils();
             this.tile = tile;
             String tileImageIconPath = utils.getTileIconPath(tile.getColor());
             tileImage = ImageIO.read(new File(getClass().getClassLoader().getResource(tileImageIconPath).getFile()));
@@ -61,6 +60,7 @@ public class TilePanel extends JPanel {
         }
 
         if (pieceImage != null) {
+            // Draw piece image in the middle of the tile.
             g2d.translate(tileImage.getWidth() / 2, tileImage.getHeight() / 2);
             g2d.drawImage(pieceImage, x, y, tileImage.getWidth() / 2, tileImage.getHeight() / 2, this);
         }

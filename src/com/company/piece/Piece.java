@@ -2,6 +2,7 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.*;
+import com.company.move.*;
 
 import java.awt.Point;
 
@@ -61,10 +62,10 @@ public abstract class Piece {
                 if (board.validPosition(possiblePos)) {
                     Tile possibleTile = board.getTile(possiblePos);
                     if (possibleTile.isEmpty()) {
-                        moves.add(createMove(possiblePos));
+                        moves.add(createNormalMove(possiblePos));
                     } else {
                         if (!sameTeam(possibleTile.getPiece())){
-                            moves.add(createMove(possiblePos, MoveType.ATTACK));
+                            moves.add(createAttackMove(possiblePos));
                         }
                         break;
                     }
@@ -82,12 +83,16 @@ public abstract class Piece {
         return this.getTeam() == piece.getTeam();
     }
 
-    public Move createMove(Point end, MoveType moveType){
-        return new Move(this.position, end, moveType);
+    public Move createAttackMove(Point end){
+        return new AttackMove(this.position, end);
     }
 
-    public Move createMove(Point end){
-        return new Move(this.position, end, MoveType.NORMAL);
+    public Move createNormalMove(Point end) {
+        return new NormalMove(this.position, end);
+    }
+
+    public Move createNormalMove(Point end, MoveType moveType) {
+        return new NormalMove(this.position, end, moveType);
     }
 
     public void setPosition(Point position) {

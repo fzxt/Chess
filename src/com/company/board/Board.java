@@ -14,7 +14,12 @@ public class Board {
 
     public Board(Player white, Player black) {
         board = new Tile[8][8];
+        createEmptyBoard();
+        initBoard();
+        givePiecesToPlayers(white, black);
+    }
 
+    private void initBoard() {
         for (int i = 0; i < 8; i+=7) {
             Team team = i == 0 ? Team.BLACK : Team.WHITE;
             board[i][0] = new Tile(new Rook(team, new Point(0, i)));
@@ -27,18 +32,24 @@ public class Board {
             board[i][7] = new Tile(new Rook(team, new Point(7, i)));
         }
 
-
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = new Tile(new Point(j, i));
             }
         }
+
         for (int k = 0; k < 8; k++) {
             board[1][k] = new Tile(new Pawn(Team.BLACK, new Point(k, 1)));
             board[6][k] = new Tile(new Pawn(Team.WHITE, new Point(k, 6)));
         }
+    }
 
-        givePiecesToPlayers(white, black);
+    private void createEmptyBoard() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Tile(new Point(i, j));
+            }
+        }
     }
 
     private void givePiecesToPlayers(Player white, Player black) {
@@ -47,10 +58,12 @@ public class Board {
         for (int row : rows) {
             for (int i = 0; i < 8; i++) {
                 Piece piece = board[row][i].getPiece();
-                if (piece.getTeam() == Team.BLACK){
-                    black.addPiece(piece);
-                } else {
-                    white.addPiece(piece);
+                if (piece != null) {
+                    if (piece.getTeam() == Team.BLACK){
+                        black.addPiece(piece);
+                    } else {
+                        white.addPiece(piece);
+                    }
                 }
             }
         }
