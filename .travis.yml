@@ -1,5 +1,4 @@
 language: java
-
 before_install:
     # Download desired version of Gradle
     - wget http://services.gradle.org/distributions/gradle-2.14-bin.zip
@@ -8,6 +7,5 @@ before_install:
     - export PATH=$GRADLE_HOME/bin:$PATH
     # just to test gradle version, against our provided one
     - gradle -v
-
 jdk:
   - oraclejdk8
