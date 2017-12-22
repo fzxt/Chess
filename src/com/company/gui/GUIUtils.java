@@ -20,9 +20,9 @@ public class GUIUtils {
     private HashMap<PieceType, String[]> map;
     private String darkTileImagePath, lightTileImagePath;
 
-
     public GUIUtils() {
         map = new HashMap<>();
+        //  TODO: Put this logic inside the Pieces themselves.
         map.put(PieceType.PAWN, new String[] { getImageIconFilePath("bp"), getImageIconFilePath("wp" )} );
         map.put(PieceType.ROOK, new String[] { getImageIconFilePath("br"), getImageIconFilePath("wr") } );
         map.put(PieceType.KING, new String[] { getImageIconFilePath("bk"), getImageIconFilePath("wk") } );
@@ -32,10 +32,6 @@ public class GUIUtils {
 
         darkTileImagePath = "dark.png";
         lightTileImagePath = "light.png";
-    }
-
-    public String getImageIconFilePath(String resourceName) {
-        return resourceName+".png";
     }
 
     public String getPieceIcon(Team team, PieceType pieceType) {
@@ -57,28 +53,6 @@ public class GUIUtils {
                 return darkTileImagePath;
             default:
                 return lightTileImagePath;
-        }
-    }
-
-    /**
-     * Get array of highlight colors with simulated alpha.
-     * @param tileType     Tile type, either LIGHT or DARK.
-     * @param highlight    Highlight of the tile.
-     * @return             Array of colors with 2 colors, 0th index is inner fill color, 1st index is border color.
-     */
-    private Color[] getHighlightColors(Tile.TILE_TYPE tileType, Tile.TILE_HIGHLIGHT highlight) {
-        switch (highlight) {
-            case BLUE:
-                return tileType == LIGHT ? normalColorsLightTile : normalColorsDarkTile;
-            case YELLOW:
-                return tileType == LIGHT ? specialColorsLightTile : specialColorsDarkTile;
-            case RED:
-                return tileType == LIGHT ? attackColorsLightTile : attackColorsDarkTile;
-            case GREEN:
-                return tileType == LIGHT ? selectedColorsLightTile : selectedColorsDarkTile;
-            case NONE:
-            default:
-                return new Color[]{ new Color(0, 0, 0), new Color(0, 0, 0)};
         }
     }
 
@@ -108,18 +82,44 @@ public class GUIUtils {
      * @param e         Mouse event (click, hover, drag, etc).
      * @return          Tile that was clicked, hovered, dragged upon etc.
      */
-    public Tile getRelevantTile(TilePanel[][] tiles, MouseEvent e) {
+    Tile getRelevantTile(TilePanel[][] tiles, MouseEvent e) {
         Tile relevantTile = null;
 
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                if (tiles[i][j] == e.getSource()) {
-                    relevantTile = tiles[i][j].getTile();
+        for (TilePanel[] tile : tiles) {
+            for (TilePanel panel : tile) {
+                if (panel == e.getSource()) {
+                    relevantTile = panel.getTile();
                     break;
                 }
             }
         }
 
         return relevantTile;
+    }
+
+    /**
+     * Get array of highlight colors with simulated alpha.
+     * @param tileType     Tile type, either LIGHT or DARK.
+     * @param highlight    Highlight of the tile.
+     * @return             Array of colors with 2 colors, 0th index is inner fill color, 1st index is border color.
+     */
+    private Color[] getHighlightColors(Tile.TILE_TYPE tileType, Tile.TILE_HIGHLIGHT highlight) {
+        switch (highlight) {
+            case BLUE:
+                return tileType == LIGHT ? normalColorsLightTile : normalColorsDarkTile;
+            case YELLOW:
+                return tileType == LIGHT ? specialColorsLightTile : specialColorsDarkTile;
+            case RED:
+                return tileType == LIGHT ? attackColorsLightTile : attackColorsDarkTile;
+            case GREEN:
+                return tileType == LIGHT ? selectedColorsLightTile : selectedColorsDarkTile;
+            case NONE:
+            default:
+                return new Color[]{ new Color(0, 0, 0), new Color(0, 0, 0)};
+        }
+    }
+
+    private String getImageIconFilePath(String resourceName) {
+        return resourceName+".png";
     }
 }
