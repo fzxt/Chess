@@ -1,5 +1,5 @@
 # Chess Project
-
+[![Build Status](https://travis-ci.com/fzxt/Chess.svg?token=TT9qSQ7v8Pwz8MWFLCnw&branch=master)](https://travis-ci.com/fzxt/Chess)
 ## Compiling, running
 - There are two primary routes, with IDE and with the command line.
  
