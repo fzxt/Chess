@@ -30,13 +30,12 @@ public class GUIUtils {
         map.put(PieceType.BISHOP, new String[] { getImageIconFilePath("bb"),getImageIconFilePath("wb") } );
         map.put(PieceType.KNIGHT, new String[] { getImageIconFilePath("bn"), getImageIconFilePath("wn") } );
 
-
-        darkTileImagePath = "../../resources/dark.png";
-        lightTileImagePath = "../../resources/light.png";
+        darkTileImagePath = "dark.png";
+        lightTileImagePath = "light.png";
     }
 
     public String getImageIconFilePath(String resourceName) {
-        return "../../resources/"+resourceName+".png";
+        return resourceName+".png";
     }
 
     public String getPieceIcon(Team team, PieceType pieceType) {
