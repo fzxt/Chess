@@ -2,9 +2,7 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.*;
-import com.company.move.Move;
-import com.company.move.MoveHistory;
-import com.company.move.MoveType;
+import com.company.move.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class Pawn extends Piece {
 
             Point doubleMove = new Point(currentPos.x, currentPos.y + getNormalized(2));
             if (board.validPosition(doubleMove) && board.getTile(doubleMove).isEmpty() && getNumMoves() == 0) {
-                moves.add(createNormalMove(doubleMove));
+                moves.add(createNormalMove(doubleMove, MoveType.NORMAL_DOUBLE));
             }
         }
 
@@ -55,11 +53,12 @@ public class Pawn extends Piece {
                         if (!sideTile.isEmpty()) {
                             Piece sidePiece = sideTile.getPiece();
                             if (sameType(sidePiece) && !sameTeam(sidePiece)) {
-                                Move lastMove = MoveHistory.getLastMove(); //TODO: Change to use GameManager move history stack
+                                // TODO: Change to use GameManager move history stack
+                                Move lastMove = MoveHistory.getLastMove();
                                 Point lastPos = lastMove.getEnd();
                                 Point sidePos = sideTile.getPosition();
                                 if (lastMove.getType() == MoveType.NORMAL_DOUBLE && sidePos.equals(lastPos)) {
-                                    moves.add(createAttackMove(diagPos));
+                                    moves.add(createEnpassantMove(diagPos));
                                 }
                             }
                         }
@@ -71,6 +70,10 @@ public class Pawn extends Piece {
         // TODO: Implement pawn promotion
         System.err.println("Pawn promotion not yet implemented!");
         return moves;
+    }
+
+    private Move createEnpassantMove(Point diagPos) {
+        return new EnpassantMove(this.startPosition, diagPos.getLocation());
     }
 
     private boolean sameType(Piece piece) {

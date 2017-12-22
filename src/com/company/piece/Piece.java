@@ -87,8 +87,12 @@ public abstract class Piece {
         return new AttackMove(this.position, end);
     }
 
-    public Move createNormalMove(Point end){
+    public Move createNormalMove(Point end) {
         return new NormalMove(this.position, end);
+    }
+
+    public Move createNormalMove(Point end, MoveType moveType) {
+        return new NormalMove(this.position, end, moveType);
     }
 
     public void setPosition(Point position) {

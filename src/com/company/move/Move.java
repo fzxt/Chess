@@ -1,6 +1,8 @@
 package com.company.move;
 
+import com.company.GameManager;
 import com.company.board.Tile;
+import com.company.piece.Piece;
 
 import java.awt.Point;
 
@@ -21,6 +23,26 @@ public abstract class Move {
 
     public Point getEnd() {
         return this.end;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Move) {
+            Move move = (Move) obj;
+            return this.start == move.start && this.end == move.end && this.type == move.type;
+        }
+
+        return false;
+    }
+
+    public void handleMove(GameManager gameManager, Tile target) {
+        Piece pieceToMove = gameManager.getSelectedPiece();
+        // 1. Set the piece to move tile to empty.
+        gameManager.getBoard().setTile(pieceToMove.getPosition(), new Tile(pieceToMove.getPosition()));
+
+        // 2. Set the move location tile to the piece.
+        pieceToMove.move(this);
+        target.setPiece(pieceToMove);
     }
 
     public abstract Tile.TILE_HIGHLIGHT getTileHighlight();
