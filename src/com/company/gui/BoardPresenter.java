@@ -61,9 +61,9 @@ public class BoardPresenter implements GUIContract.Presenter {
     private void handleAvailableMoves(Tile tile) {
         Piece piece = tile.getPiece();
         Player currentPlayer = gameManager.getCurrentPlayer();
+        gameManager.unhighlightBoard();
         // If they clicked their own piece AND it's their turn, they want to move it, show the moves.
         if (currentPlayer.getTeam() == piece.getTeam()) {
-            gameManager.unhighlightBoard();
 
             for (Move move : piece.getAvailableMoves(gameManager.getBoard())) {
                 Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
@@ -90,11 +90,9 @@ public class BoardPresenter implements GUIContract.Presenter {
             }
 
             gameManager.setSelectedPiece(piece);
-            view.updateBoard(gameManager.getBoard());
-        } else {
-            gameManager.unhighlightBoard();
-            view.updateBoard(gameManager.getBoard());
         }
+
+        view.updateBoard(gameManager.getBoard());
     }
 
     private void handleNormalMove(Tile tileToMoveTo) {
