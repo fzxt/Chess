@@ -1,4 +1,4 @@
-package com.company.board;
+package com.company.move;
 
 import java.util.LinkedList;
 

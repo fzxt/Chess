@@ -4,6 +4,8 @@ import com.company.GameManager;
 import com.company.Player;
 import com.company.Team;
 import com.company.board.*;
+import com.company.move.Move;
+import com.company.move.MoveType;
 import com.company.piece.Piece;
 
 import java.awt.*;
@@ -39,6 +41,7 @@ public class BoardPresenter implements GUIContract.Presenter {
             // Or they clicked a tile without a piece that is highlighted
             Move move = tile.getMove();
 
+            // TODO: Get rid of this!
             switch (move.getType()) {
                 case NORMAL:
                 case NORMAL_DOUBLE:
@@ -69,24 +72,10 @@ public class BoardPresenter implements GUIContract.Presenter {
                 Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
                 Tile startTile = gameManager.getBoard().getTile(piece.getPosition());
                 startTile.setHighlight(Tile.TILE_HIGHLIGHT.GREEN);
-                Tile moveableTile = gameManager.getBoard().getTile(movePoint);
-
-                switch (move.getType()) {
-                    case NORMAL:
-                    case NORMAL_DOUBLE:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.BLUE);
-                        break;
-                    case ATTACK:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.RED);
-                        break;
-                    case ENPASSANT:
-                    case CASTLE:
-                        moveableTile.setHighlight(Tile.TILE_HIGHLIGHT.YELLOW);
-                        break;
-                }
-
-                moveableTile.setMove(move);
-                gameManager.setTile(movePoint, moveableTile);
+                Tile target = gameManager.getBoard().getTile(movePoint);
+                target.setHighlight(move.getTileHighlight());
+                target.setMove(move);
+                gameManager.setTile(movePoint, target);
             }
 
             gameManager.setSelectedPiece(piece);
@@ -116,6 +105,7 @@ public class BoardPresenter implements GUIContract.Presenter {
         if (tileToMoveTo.getMove().getType() == MoveType.ENPASSANT) {
             int direction = gameManager.getCurrentPlayer().getTeam() == Team.WHITE ? 1 : -1;
             attackedPiece = gameManager.getTile(tilePos.x, tilePos.y+direction).getPiece();
+            // Clear tile
             gameManager.setTile(attackedPiece.getPosition(), new Tile(attackedPiece.getPosition()));
         }
 
@@ -127,8 +117,8 @@ public class BoardPresenter implements GUIContract.Presenter {
         gameManager.nextTurn();
     }
 
-    private void makeMove(Tile tileToMoveTo) {
-        Move move = tileToMoveTo.getMove();
+    private void makeMove(Tile target) {
+        Move move = target.getMove();
         Piece pieceToMove = gameManager.getSelectedPiece();
 
         // 1. Set the piece to move tile to empty.
@@ -136,8 +126,8 @@ public class BoardPresenter implements GUIContract.Presenter {
 
         // 2. Set the move location tile to the piece.
         pieceToMove.move(move);
-        tileToMoveTo.setPiece(pieceToMove);
-        gameManager.setTile(tileToMoveTo.getPosition(), tileToMoveTo);
+        target.setPiece(pieceToMove);
+        gameManager.setTile(target.getPosition(), target);
     }
 
 }

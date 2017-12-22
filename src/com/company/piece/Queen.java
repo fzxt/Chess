@@ -2,7 +2,7 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.Board;
-import com.company.board.Move;
+import com.company.move.Move;
 import java.awt.Point;
 import java.util.ArrayList;
 

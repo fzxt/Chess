@@ -2,8 +2,7 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.Board;
-import com.company.board.Move;
-import com.company.board.MoveType;
+import com.company.move.Move;
 import com.company.board.Tile;
 
 import java.awt.Point;
@@ -34,9 +33,9 @@ public class Knight extends Piece {
             if (board.validPosition(possibleMove)) {
                 Tile possibleTile = board.getTile(possibleMove);
                 if (possibleTile.isEmpty()) {
-                    moves.add(createMove(possibleMove));
+                    moves.add(createNormalMove(possibleMove));
                 } else if (!sameTeam(possibleTile.getPiece())) {
-                    moves.add(createMove(possibleMove, MoveType.ATTACK));
+                    moves.add(createAttackMove(possibleMove));
                 }
             }
         }

@@ -1,8 +1,10 @@
-package com.company.board;
+package com.company.move;
+
+import com.company.board.Tile;
 
 import java.awt.Point;
 
-public class Move {
+public abstract class Move {
     private Point start;
     private Point end;
     private MoveType type;
@@ -17,13 +19,11 @@ public class Move {
         return this.type;
     }
 
-    public Point getStart() {
-        return this.start;
-    }
-
     public Point getEnd() {
         return this.end;
     }
+
+    public abstract Tile.TILE_HIGHLIGHT getTileHighlight();
 
     @Override
     public String toString() {

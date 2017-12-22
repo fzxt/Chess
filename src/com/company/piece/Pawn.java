@@ -2,6 +2,9 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.*;
+import com.company.move.Move;
+import com.company.move.MoveHistory;
+import com.company.move.MoveType;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -24,11 +27,11 @@ public class Pawn extends Piece {
 
         // Regular moves
         if (board.validPosition(singleMove) && board.getTile(singleMove).isEmpty()) {
-            moves.add(createMove(singleMove));
+            moves.add(createNormalMove(singleMove));
 
             Point doubleMove = new Point(currentPos.x, currentPos.y + getNormalized(2));
             if (board.validPosition(doubleMove) && board.getTile(doubleMove).isEmpty() && getNumMoves() == 0) {
-                moves.add(createMove(doubleMove, MoveType.NORMAL_DOUBLE));
+                moves.add(createNormalMove(doubleMove));
             }
         }
 
@@ -43,7 +46,7 @@ public class Pawn extends Piece {
                 Tile diagonalTile = board.getTile(diagPos);
                 if (!diagonalTile.isEmpty()) {
                     if (!sameTeam(diagonalTile.getPiece())) {
-                        moves.add(createMove(diagonalTile.getPosition(), MoveType.ATTACK));
+                        moves.add(createAttackMove(diagonalTile.getPosition()));
                     }
                 } else {
                     // En passant moves
@@ -56,7 +59,7 @@ public class Pawn extends Piece {
                                 Point lastPos = lastMove.getEnd();
                                 Point sidePos = sideTile.getPosition();
                                 if (lastMove.getType() == MoveType.NORMAL_DOUBLE && sidePos.equals(lastPos)) {
-                                    moves.add(createMove(diagPos, MoveType.ENPASSANT));
+                                    moves.add(createAttackMove(diagPos));
                                 }
                             }
                         }

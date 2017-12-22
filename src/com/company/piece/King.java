@@ -2,8 +2,7 @@ package com.company.piece;
 
 import com.company.Team;
 import com.company.board.Board;
-import com.company.board.Move;
-import com.company.board.MoveType;
+import com.company.move.Move;
 import com.company.board.Tile;
 
 import java.awt.Point;
@@ -26,16 +25,17 @@ public class King extends Piece {
                     if (board.validPosition(possiblePos)) {
                         Tile possibleTile = board.getTile(possiblePos);
                         if (possibleTile.isEmpty()) {
-                            moves.add(createMove(possiblePos));
+                            moves.add(createNormalMove(possiblePos));
                         } else {
                             if (!sameTeam(possibleTile.getPiece())) {
-                                moves.add(createMove(possiblePos, MoveType.ATTACK));
+                                moves.add(createAttackMove(possiblePos));
                             }
                         }
                     }
                 }
             }
         }
+
         System.err.println("Castling not yet implemented.");
         return moves;
     }
