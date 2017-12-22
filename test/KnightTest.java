@@ -1,19 +1,14 @@
-package com.company.test;
-
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.move.Move;
 import com.company.move.NormalMove;
-import com.company.piece.Bishop;
 import com.company.piece.Knight;
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.company.test.TestUtils.assertMovesMatch;
-import static com.company.test.TestUtils.createEmptyBoard;
 import static org.junit.Assert.*;
 
 public class KnightTest {
@@ -33,7 +28,7 @@ public class KnightTest {
                 generatePos(2, 1),
         };
 
-        Board board = createEmptyBoard();
+        Board board = TestUtils.createEmptyBoard();
         Point middle = new Point(4, 4);
         board.setTile(middle, new Tile(new Knight(Team.WHITE, middle)));
 
@@ -46,7 +41,7 @@ public class KnightTest {
 
         assertEquals(expected.size(), actual.size());
 
-        assertMovesMatch(expected, actual);
+        TestUtils.assertMovesMatch(expected, actual);
     }
 
     private Point generatePos(int x, int y) {

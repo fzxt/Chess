@@ -1,5 +1,3 @@
-package com.company.test;
-
 import com.company.Player;
 import com.company.Team;
 import com.company.board.Board;

@@ -1,5 +1,3 @@
-package com.company.test;
-
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Tile;
@@ -11,8 +9,6 @@ import org.junit.Test;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.company.test.TestUtils.assertMovesMatch;
-import static com.company.test.TestUtils.createEmptyBoard;
 import static org.junit.Assert.*;
 
 public class KingTest {
@@ -21,7 +17,7 @@ public class KingTest {
 
     @Test
     public void getAvailableMoves() throws Exception {
-        Board board = createEmptyBoard();
+        Board board = TestUtils.createEmptyBoard();
         Point middle = new Point(4, 4);
         board.setTile(middle, new Tile(new King(Team.WHITE, middle)));
 
@@ -38,6 +34,6 @@ public class KingTest {
         }
 
         assertEquals(expected.size(), actual.size());
-        assertMovesMatch(expected, actual);
+        TestUtils.assertMovesMatch(expected, actual);
     }
 }

@@ -1,26 +1,20 @@
-package com.company.test;
-
 import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.move.Move;
-import com.company.piece.Queen;
 import com.company.piece.Rook;
 import org.junit.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.company.test.TestUtils.assertMovesMatch;
-import static com.company.test.TestUtils.createEmptyBoard;
-import static com.company.test.TestUtils.searchInLine;
 import static org.junit.Assert.*;
 
 public class RookTest {
 
     @Test
     public void getAvailableMoves() throws Exception {
-        Board board = createEmptyBoard();
+        Board board = TestUtils.createEmptyBoard();
         Point middle = new Point(4, 4);
         board.setTile(middle, new Tile(new Rook(Team.WHITE, middle)));
         ArrayList<Move> actual = board.getTile(middle).getPiece().getAvailableMoves(board);
@@ -34,8 +28,8 @@ public class RookTest {
         };
 
 
-        searchInLine(expected, directionOffsets, middle);
+        TestUtils.searchInLine(expected, directionOffsets, middle);
         assertEquals(expected.size(), actual.size());
-        assertMovesMatch(expected, actual);
+        TestUtils.assertMovesMatch(expected, actual);
     }
 }
