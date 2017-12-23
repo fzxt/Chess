@@ -16,22 +16,29 @@ public class CastleMove extends SpecialMove {
     public void handleMove(GameManager gameManager, Tile target) {
         Board board = gameManager.getBoard();
         Piece rook;
-        Point end;
+        Point rookFinalPosition;
 
         if (target.getPosition().x > this.start.x) {
             // Rook on the right side
-            rook = board.getTile(new Point(target.getPosition().x + 1, target.getPosition().y)).getPiece();
-            end = new Point(target.getPosition().x - 1, target.getPosition().y);
+            rook = board.getTile(target.getPosition().x + 1, target.getPosition().y).getPiece();
+            rookFinalPosition = new Point(target.getPosition().x - 1, target.getPosition().y);
         } else {
             // Rook on the left side
-            rook = board.getTile(new Point(target.getPosition().x - 2, target.getPosition().y)).getPiece();
-            end = new Point(target.getPosition().x + 1, target.getPosition().y);
+            rook = board.getTile(target.getPosition().x - 2, target.getPosition().y).getPiece();
+            rookFinalPosition = new Point(target.getPosition().x + 1, target.getPosition().y);
         }
 
         Piece king = gameManager.getTile(start).getPiece();
+        king.move(this);
+        gameManager.getBoard().setTile(rook.getPosition(), new Tile(rook.getPosition()));
+        rook.setPosition(rookFinalPosition);
 
-        board.setTile(target.getPosition(), new Tile(king));
-        board.setTile(rook.getPosition(), new Tile(rook.getPosition()));
-        board.setTile(end, new Tile(rook));
+        // Clear positions
+        gameManager.getBoard().setTile(start, new Tile(start));
+        gameManager.getBoard().setTile(target.getPosition(), new Tile(target.getPosition()));
+        gameManager.getBoard().setTile(rookFinalPosition, new Tile(rookFinalPosition));
+
+        gameManager.getBoard().getTile(target.getPosition()).setPiece(king);
+        gameManager.getBoard().getTile(rookFinalPosition).setPiece(rook);
     }
 }

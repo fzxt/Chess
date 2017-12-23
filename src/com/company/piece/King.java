@@ -44,24 +44,15 @@ public class King extends Piece {
             int x = this.getPosition().x;
             int y = this.getPosition().y;
 
-            // Search queens side
-            if (board.getTile(x - 1, y).isEmpty() && board.getTile(x - 2, y).isEmpty()) {
-                Tile potentialRook = board.getTile(x - 4, y);
-                if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
-                    Piece rook = potentialRook.getPiece();
-                    if (rook.getNumMoves() == 0) {
-                        moves.add(createCastleMove(new Point(x - 2, y)));
-                    }
-                }
-            }
-
-            // Search kings side
-            if (board.getTile(x + 1, y).isEmpty() && board.getTile(x + 2, y).isEmpty()) {
-                Tile potentialRook = board.getTile(x + 3, y);
-                if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
-                    Piece rook = potentialRook.getPiece();
-                    if (rook.getNumMoves() == 0) {
-                        moves.add(createCastleMove(new Point(x + 2, y)));
+            for (int direction = -1; direction <= 1; direction += 2) {
+                if (board.getTile(x + direction, y).isEmpty() && board.getTile(x + (2 * direction), y).isEmpty()) {
+                    int potentialX = direction < 0 ? x - 4 : x + 3;
+                    Tile potentialRook = board.getTile(potentialX, y);
+                    if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
+                        Piece rook = potentialRook.getPiece();
+                        if (rook.getNumMoves() == 0) {
+                            moves.add(createCastleMove(new Point(x + (2 * direction), y)));
+                        }
                     }
                 }
             }
