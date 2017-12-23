@@ -62,9 +62,9 @@ public class BoardPresenter implements GUIContract.Presenter {
         for (Move move : piece.getAvailableMoves(gameManager.getBoard())) {
             System.out.println(move);
             Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
-            Tile startTile = gameManager.getBoard().getTile(piece.getPosition());
+            Tile startTile = gameManager.getTile(piece.getPosition());
             startTile.setHighlight(Tile.TILE_HIGHLIGHT.GREEN);
-            Tile target = gameManager.getBoard().getTile(movePoint);
+            Tile target = gameManager.getTile(movePoint);
             target.setHighlight(move.getTileHighlight());
             target.setMove(move);
             gameManager.setTile(movePoint, target);

@@ -24,6 +24,14 @@ public class GameManager {
         this.selectedPiece = null;
     }
 
+    public GameManager(Board board) {
+        this.white = new Player(Team.WHITE);
+        this.black = new Player(Team.BLACK);
+        this.currentPlayer = white;
+        this.board = board;
+        this.selectedPiece = null;
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -62,7 +70,11 @@ public class GameManager {
         currentPlayer = currentPlayer == white ? black : white;
     }
 
-    public Tile getTile(int x, int i) {
-        return getBoard().getTile(x, i);
+    public Tile getTile(int x, int y) {
+        return getBoard().getTile(x, y);
+    }
+
+    public Tile getTile(Point pos) {
+        return getBoard().getTile(pos);
     }
 }
