@@ -25,8 +25,8 @@ public class Board {
             board[i][0] = new Tile(new Rook(team, new Point(0, i)));
             board[i][1] = new Tile(new Knight(team, new Point(1, i)));
             board[i][2] = new Tile(new Bishop(team, new Point(2, i)));
-            board[i][3] = new Tile(new King(team, new Point(3, i)));
-            board[i][4] = new Tile(new Queen(team, new Point(4, i)));
+            board[i][3] = new Tile(new Queen(team, new Point(3, i)));
+            board[i][4] = new Tile(new King(team, new Point(4, i)));
             board[i][5] = new Tile(new Bishop(team, new Point(5, i)));
             board[i][6] = new Tile(new Knight(team, new Point(6, i)));
             board[i][7] = new Tile(new Rook(team, new Point(7, i)));

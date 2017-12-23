@@ -7,7 +7,7 @@ import com.company.piece.Piece;
 import java.awt.Point;
 
 public abstract class Move {
-    private Point start;
+    public Point start;
     private Point end;
     private MoveType type;
     
