@@ -80,21 +80,11 @@ public class Pawn extends Piece {
     }
 
     public boolean promotePawn() {
-        if (getTeam() == Team.WHITE) {
-            if (getPosition().y == 0) {
-                return true;
-            }
-        } else {
-            if (getPosition().y == 7) {
-                return true;
-            }
-        }
-
-        return false;
+        return getTeam() == Team.WHITE && getPosition().y == 0 || getTeam() == Team.BLACK && getPosition().y == 7;
     }
 
-    private Move createEnpassantMove(Point diagPos) {
-        return new EnpassantMove(this.startPosition, diagPos.getLocation());
+    private Move createEnpassantMove(Point target) {
+        return new EnpassantMove(this.startPosition, target.getLocation());
     }
 
     private boolean sameType(Piece piece) {

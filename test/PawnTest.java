@@ -26,4 +26,29 @@ public class PawnTest {
         assertEquals(expected.size(), actual.size());
         TestUtils.assertMovesMatch(expected, actual);
     }
+
+    @Test
+    public void pawnPromotion() {
+        Board board = TestUtils.createEmptyBoard();
+        Point secondRowVeryRight = new Point(7 ,1);
+        Point secondLastRowVeryLeft = new Point(0 ,6);
+
+        board.setTile(secondRowVeryRight, new Tile(new Pawn(Team.WHITE, secondRowVeryRight)));
+        board.setTile(secondLastRowVeryLeft, new Tile(new Pawn(Team.BLACK, secondLastRowVeryLeft)));
+
+        ArrayList<Move> actualWhite = board.getTile(secondRowVeryRight).getPiece().getAvailableMoves(board);
+        ArrayList<Move> expectedWhite = new ArrayList<>();
+
+        ArrayList<Move> actualBlack = board.getTile(secondLastRowVeryLeft).getPiece().getAvailableMoves(board);
+        ArrayList<Move> expectedBlack = new ArrayList<>();
+
+        expectedWhite.add(new NormalMove(secondRowVeryRight, new Point(7, 0)));
+        expectedBlack.add(new NormalMove(secondLastRowVeryLeft, new Point(0, 7)));
+
+        assertEquals(expectedWhite.size(), actualWhite.size());
+        assertEquals(expectedBlack.size(), actualBlack.size());
+
+        TestUtils.assertMovesMatch(expectedWhite, actualWhite);
+        TestUtils.assertMovesMatch(expectedBlack, actualBlack);
+    }
 }
