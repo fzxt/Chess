@@ -82,7 +82,7 @@ public class GUIUtils {
      * @param e         Mouse event (click, hover, drag, etc).
      * @return          Tile that was clicked, hovered, dragged upon etc.
      */
-    Tile getRelevantTile(TilePanel[][] tiles, MouseEvent e) {
+    public Tile getRelevantTile(TilePanel[][] tiles, MouseEvent e) {
         Tile relevantTile = null;
 
         for (TilePanel[] tile : tiles) {
@@ -91,6 +91,19 @@ public class GUIUtils {
                     relevantTile = panel.getTile();
                     break;
                 }
+            }
+        }
+
+        return relevantTile;
+    }
+
+    public static Tile getRelevantTile(TilePanel[] tiles, MouseEvent e) {
+        Tile relevantTile = null;
+
+        for (TilePanel panel : tiles) {
+            if (panel == e.getSource()) {
+                relevantTile = panel.getTile();
+                break;
             }
         }
 

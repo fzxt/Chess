@@ -1,4 +1,4 @@
-package com.company.gui;
+package com.company.gui.board;
 
 import com.company.board.Board;
 import com.company.board.Tile;
@@ -7,7 +7,7 @@ import com.company.piece.Piece;
 import java.awt.*;
 import java.util.ArrayList;
 
-public interface GUIContract {
+public interface BoardGUIContract {
     interface Presenter {
         /**
          * This will start to load the initial board. Called by the view.
@@ -20,10 +20,21 @@ public interface GUIContract {
         void loadBoard();
 
         /**
+         * Pauses the game
+         */
+        void pause();
+
+        /**
+         * Unpauses the game
+         */
+        void unpause();
+
+        /**
          * This will handle clicking a tile.
          * @param tileClicked   tile that was clicked.
          */
         void handleClickedTile(Tile tileClicked);
+
     }
 
     interface View {
@@ -35,10 +46,10 @@ public interface GUIContract {
         void setPresenter(Presenter presenter);
 
         /**
-         * This will show the board on the screen.
-         * @param board         board to show.
+         * This will set the board to display.
+         * @param board         board to display.
          */
-        void showBoard(Board board);
+        void setBoard(Board board);
 
         /**
          * Sets up the JFrame and shows the view.
@@ -46,9 +57,27 @@ public interface GUIContract {
         void showView();
 
         /**
-         * Updates and redraw the board.
+         * Updates and redraws the board.
          * @param board         new board.
          */
         void updateBoard(Board board);
+
+        /**
+         * Enables or disables the view
+         * @param enabled       whether to enable or disable the view
+         */
+        void setEnabled(boolean enabled);
+
+        /**
+         * Show dark overlay over the view (To draw attention to other views, considered this paused)
+         */
+        void showOverlay();
+
+        /**
+         * Hides dark overlay over the view
+         */
+        void hideOverlay();
+
+        boolean isDisabled();
     }
 }

@@ -67,13 +67,24 @@ public class Pawn extends Piece {
             }
         }
 
-        // TODO: Implement pawn promotion
-        System.err.println("Pawn promotion not yet implemented!");
+
+        for (int i = 0 ; i < moves.size(); i++) {
+            Move move = moves.get(i);
+            if (move.getEnd().y == 7 || move.getEnd().y == 0) {
+                moves.set(i, new PawnPromotionMove(currentPos, move.getEnd()));
+            }
+        }
+
+
         return moves;
     }
 
-    private Move createEnpassantMove(Point diagPos) {
-        return new EnpassantMove(this.startPosition, diagPos.getLocation());
+    public boolean promotePawn() {
+        return getTeam() == Team.WHITE && getPosition().y == 0 || getTeam() == Team.BLACK && getPosition().y == 7;
+    }
+
+    private Move createEnpassantMove(Point target) {
+        return new EnpassantMove(this.startPosition, target.getLocation());
     }
 
     private boolean sameType(Piece piece) {
