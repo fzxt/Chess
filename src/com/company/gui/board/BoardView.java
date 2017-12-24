@@ -89,11 +89,6 @@ public class BoardView extends MouseAdapter implements BoardGUIContract.View  {
     }
 
     @Override
-    public boolean isDisabled() {
-        return frame.getGlassPane().isEnabled();
-    }
-
-    @Override
     public void setBoard(Board board) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

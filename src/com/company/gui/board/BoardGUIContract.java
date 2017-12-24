@@ -34,7 +34,6 @@ public interface BoardGUIContract {
          * @param tileClicked   tile that was clicked.
          */
         void handleClickedTile(Tile tileClicked);
-
     }
 
     interface View {
@@ -77,7 +76,5 @@ public interface BoardGUIContract {
          * Hides dark overlay over the view
          */
         void hideOverlay();
-
-        boolean isDisabled();
     }
 }
