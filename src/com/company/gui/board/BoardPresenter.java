@@ -1,20 +1,25 @@
-package com.company.gui;
+package com.company.gui.board;
 
+import com.company.Game;
 import com.company.GameManager;
 import com.company.Player;
 import com.company.board.*;
 import com.company.move.Move;
+import com.company.piece.Pawn;
 import com.company.piece.Piece;
+import com.company.piece.PieceType;
 
 import java.awt.*;
 
-public class BoardPresenter implements GUIContract.Presenter {
-    private final GUIContract.View view;
+public class BoardPresenter implements BoardGUIContract.Presenter {
+    private final BoardGUIContract.View view;
     private final GameManager gameManager;
+    private final Game game;
 
-    public BoardPresenter(GUIContract.View view, GameManager gameManager) {
+    public BoardPresenter(BoardGUIContract.View view, GameManager gameManager, Game game) {
         this.gameManager = gameManager;
         this.view = view;
+        this.game = game;
         view.setPresenter(this);
     }
 
@@ -25,8 +30,21 @@ public class BoardPresenter implements GUIContract.Presenter {
 
     @Override
     public void loadBoard() {
-        view.showBoard(gameManager.getBoard());
+        view.setBoard(gameManager.getBoard());
         view.showView();
+    }
+
+    @Override
+    public void pause() {
+        view.setEnabled(false);
+        view.showOverlay();
+    }
+
+    @Override
+    public void unpause() {
+        view.setEnabled(true);
+        view.hideOverlay();
+        view.updateBoard(gameManager.getBoard());
     }
 
     @Override
@@ -48,6 +66,15 @@ public class BoardPresenter implements GUIContract.Presenter {
             // Or they clicked a tile without a piece that is highlighted
             Move move = tile.getMove();
             move.handleMove(gameManager, tile);
+
+            // Check for pawn promotion
+            if (gameManager.getSelectedPiece().getType() == PieceType.PAWN) {
+                Pawn pawn = (Pawn) gameManager.getSelectedPiece();
+                if (pawn.promotePawn()) {
+                    game.showPawnPromotionView();
+                }
+            }
+
             gameManager.unhighlightBoard();
             gameManager.nextTurn();
             view.updateBoard(gameManager.getBoard());

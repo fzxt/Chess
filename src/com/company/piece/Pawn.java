@@ -67,9 +67,30 @@ public class Pawn extends Piece {
             }
         }
 
-        // TODO: Implement pawn promotion
-        System.err.println("Pawn promotion not yet implemented!");
+
+        for (int i = 0 ; i < moves.size(); i++) {
+            Move move = moves.get(i);
+            if (move.getEnd().y == 7 || move.getEnd().y == 0) {
+                moves.set(i, new PawnPromotionMove(currentPos, move.getEnd()));
+            }
+        }
+
+
         return moves;
+    }
+
+    public boolean promotePawn() {
+        if (getTeam() == Team.WHITE) {
+            if (getPosition().y == 0) {
+                return true;
+            }
+        } else {
+            if (getPosition().y == 7) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Move createEnpassantMove(Point diagPos) {

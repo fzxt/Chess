@@ -14,7 +14,7 @@ public class Player {
         this.team = team;
     }
 
-    public void removePiece(Piece piece) {
+    void removePiece(Piece piece) {
         if (pieces.contains(piece)) {
             pieces.remove(piece);
         }
