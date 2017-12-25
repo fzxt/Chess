@@ -22,4 +22,9 @@ public class EnpassantMove extends SpecialMove {
         gameManager.setTile(attackedPiece.getPosition(), new Tile(attackedPiece.getPosition()));
         gameManager.removePieceFromGame(attackedPiece);
     }
+
+    @Override
+    public void undo(GameManager gm) {
+        System.err.println("Enpassant: Undo not implemented!");
+    }
 }

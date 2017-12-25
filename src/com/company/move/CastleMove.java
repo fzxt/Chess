@@ -41,4 +41,9 @@ public class CastleMove extends SpecialMove {
         gameManager.getBoard().getTile(target.getPosition()).setPiece(king);
         gameManager.getBoard().getTile(rookFinalPosition).setPiece(rook);
     }
+
+    @Override
+    public void undo(GameManager gm) {
+        System.err.println("Enpassant: Undo not implemented!");
+    }
 }

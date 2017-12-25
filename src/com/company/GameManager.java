@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.board.Board;
 import com.company.board.Tile;
+import com.company.move.MoveHistory;
 import com.company.piece.Piece;
 
 import java.awt.*;
@@ -76,5 +77,17 @@ public class GameManager {
 
     public Tile getTile(Point pos) {
         return getBoard().getTile(pos);
+    }
+
+    public int getMoveCount() {
+        return MoveHistory.getMoveList().size();
+    }
+
+    public void toggleTeam() {
+        currentPlayer = currentPlayer == white ? black : white;
+    }
+
+    public void undo() {
+        MoveHistory.getLastMove().undo(this);
     }
 }

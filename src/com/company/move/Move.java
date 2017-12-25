@@ -36,10 +36,9 @@ public abstract class Move {
     }
 
     public void handleMove(GameManager gameManager, Tile target) {
-        Piece pieceToMove = gameManager.getSelectedPiece();
+        Piece pieceToMove = gameManager.getTile(this.start).getPiece();
         // 1. Set the piece to move tile to empty.
         gameManager.getBoard().setTile(pieceToMove.getPosition(), new Tile(pieceToMove.getPosition()));
-
         // 2. Set the move location tile to the piece.
         pieceToMove.move(this);
         target.setPiece(pieceToMove);
@@ -51,4 +50,6 @@ public abstract class Move {
     public String toString() {
         return "S: " + start + "\t E: " + end;
     }
+
+    public abstract void undo(GameManager gm);
 }

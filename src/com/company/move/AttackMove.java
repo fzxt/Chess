@@ -22,4 +22,9 @@ public class AttackMove extends Move {
     public Tile.TILE_HIGHLIGHT getTileHighlight() {
         return Tile.TILE_HIGHLIGHT.RED;
     }
+
+    @Override
+    public void undo(GameManager gm) {
+        System.err.println("Attack move: Undo not implemented!");
+    }
 }
