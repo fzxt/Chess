@@ -1,6 +1,6 @@
 package com.company.move;
 
-import com.company.GameManager;
+import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.piece.Piece;
 
@@ -22,11 +22,17 @@ public class NormalMove extends Move {
     }
 
     @Override
-    public void undo(GameManager gm) {
-        Tile end = gm.getTile(getEnd());
-        Piece movedPiece = end.getPiece();
+    public void undo(Board board) {
+        Tile to = board.getTile(end);
+        System.out.println(to);
+        Piece movedPiece = to.getPiece();
         movedPiece.setPosition(start);
-        gm.setTile(new Point(getEnd()), new Tile(getEnd()));
-        gm.setTile(new Point(start), new Tile(movedPiece));
+        board.getTile(start).setPiece(movedPiece);
+        to.setPiece(null);
+    }
+
+    @Override
+    public Move copy() {
+        return new NormalMove(new Point(this.start), new Point(this.end), this.getType());
     }
 }

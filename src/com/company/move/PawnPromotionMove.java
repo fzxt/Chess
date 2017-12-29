@@ -1,6 +1,6 @@
 package com.company.move;
 
-import com.company.GameManager;
+import com.company.board.Board;
 import com.company.board.Tile;
 
 import java.awt.*;
@@ -17,7 +17,11 @@ public class PawnPromotionMove extends NormalMove {
     }
 
     @Override
-    public void undo(GameManager gm) {
-        System.err.println("PawnPromotion: Undo not implemented!");
+    public void undo(Board board) {
+    }
+
+    @Override
+    public Move copy() {
+        return new PawnPromotionMove(new Point(this.start), new Point(this.end));
     }
 }

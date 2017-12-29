@@ -14,6 +14,20 @@ public class Rook extends Piece{
     }
 
     @Override
+    public int[][] positionTable() {
+        return new int[][] {
+            {  0,  0,  0,  0,  0,  0,  0,  0 },
+            {  5, 10, 10, 10, 10, 10, 10,  5 },
+            { -5,  0,  0,  0,  0,  0,  0, -5 },
+            { -5,  0,  0,  0,  0,  0,  0, -5 },
+            { -5,  0,  0,  0,  0,  0,  0, -5 },
+            { -5,  0,  0,  0,  0,  0,  0, -5 },
+            { -5,  0,  0,  0,  0,  0,  0, -5 },
+            {  0,  0,  0,  5,  5,  0,  0,  0 }
+        };
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         int[][] directionOffsets = {
                 {0, 1}, // Up
@@ -24,5 +38,10 @@ public class Rook extends Piece{
 
         return getMovesInLine(board, directionOffsets);
     }
-    
+
+    @Override
+    public Piece copy() {
+        return new Rook(this.getTeam(), new Point(this.getPosition()));
+    }
+
 }

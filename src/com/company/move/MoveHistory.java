@@ -1,28 +1,28 @@
 package com.company.move;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class MoveHistory {
     private static MoveHistory instance = null;
-    private static LinkedList<Move> moveList = new LinkedList<>();
-    protected MoveHistory(){ }
+    private  Stack<Move> moveList = new Stack<>();
 
     public static MoveHistory getInstance() {
         if (instance == null){
             instance = new MoveHistory();
         }
+
         return instance;
     }
 
-    public static void addMove(Move move){
+    public void addMove(Move move){
         moveList.add(move);
     }
 
-    public static LinkedList<Move> getMoveList(){
+    public Stack<Move> getMoveHistory() {
         return moveList;
     }
 
-    public static Move getLastMove(){
-        return moveList.getLast();
+    public Move popLastMove() {
+        return moveList.pop();
     }
 }

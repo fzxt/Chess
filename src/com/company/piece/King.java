@@ -17,6 +17,20 @@ public class King extends Piece {
     }
 
     @Override
+    public int[][] positionTable() {
+        return new int[][] {
+                { -30,-40,-40,-50,-50,-40,-40,-30 },
+                { -30,-40,-40,-50,-50,-40,-40,-30 },
+                { -30,-40,-40,-50,-50,-40,-40,-30 },
+                { -30,-40,-40,-50,-50,-40,-40,-30 },
+                { -20,-30,-30,-40,-40,-30,-30,-20 },
+                { -10,-20,-20,-20,-20,-20,-20,-10 },
+                {  20, 20,  0,  0,  0,  0, 20, 20 },
+                {  20, 30, 10,  0,  0, 10, 30, 20 }
+        };
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
@@ -38,27 +52,32 @@ public class King extends Piece {
             }
         }
 
-        // Castling
-        // You can only castle at the start
-        if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
-            int x = this.getPosition().x;
-            int y = this.getPosition().y;
-
-            for (int direction = -1; direction <= 1; direction += 2) {
-                if (board.getTile(x + direction, y).isEmpty() && board.getTile(x + (2 * direction), y).isEmpty()) {
-                    int potentialX = direction < 0 ? x - 4 : x + 3;
-                    Tile potentialRook = board.getTile(potentialX, y);
-                    if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
-                        Piece rook = potentialRook.getPiece();
-                        if (rook.getNumMoves() == 0) {
-                            moves.add(createCastleMove(new Point(x + (2 * direction), y)));
-                        }
-                    }
-                }
-            }
-        }
+//        // Castling
+//        // You can only castle at the start
+//        if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
+//            int x = this.getPosition().x;
+//            int y = this.getPosition().y;
+//
+//            for (int direction = -1; direction <= 1; direction += 2) {
+//                if (board.getTile(x + direction, y).isEmpty() && board.getTile(x + (2 * direction), y).isEmpty()) {
+//                    int potentialX = direction < 0 ? x - 4 : x + 3;
+//                    Tile potentialRook = board.getTile(potentialX, y);
+//                    if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
+//                        Piece rook = potentialRook.getPiece();
+//                        if (rook.getNumMoves() == 0) {
+//                            moves.add(createCastleMove(new Point(x + (2 * direction), y)));
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         return moves;
+    }
+
+    @Override
+    public Piece copy() {
+        return new King(this.getTeam(), new Point(this.getPosition()));
     }
 
     private Move createCastleMove(Point end) {

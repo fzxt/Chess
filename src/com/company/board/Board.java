@@ -2,6 +2,7 @@ package com.company.board;
 
 import com.company.Player;
 import com.company.Team;
+import com.company.move.Move;
 import com.company.piece.*;
 
 import java.awt.Point;
@@ -17,6 +18,15 @@ public class Board {
         createEmptyBoard();
         initBoard();
         givePiecesToPlayers(white, black);
+    }
+
+    public Board(Board board) {
+        this.board = new Tile[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.board[i][j] = board.getBoard()[i][j].deepCopy();
+            }
+        }
     }
 
     private void initBoard() {
@@ -91,6 +101,15 @@ public class Board {
         }
     }
 
+    public void handleMove(Move move) {
+        Tile start = getTile(move.start);
+        Tile end = getTile(move.getEnd());
+        Piece pieceToMove = start.getPiece();
+        pieceToMove.move(move);
+        start.setPiece(null);
+        end.setPiece(pieceToMove);
+    }
+
     public boolean validPosition(Point position) {
         return (position.x >= 0 && position.x <= 7 && position.y >= 0 && position.y <= 7);
     }
@@ -112,5 +131,9 @@ public class Board {
         }
         sb.append("-----------------------------------------------------------------\n");
         return sb.toString();
+    }
+
+    public void clearTile(Point start) {
+        getTile(start).setPiece(null);
     }
 }

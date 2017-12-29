@@ -1,14 +1,13 @@
 package com.company.move;
 
-import com.company.GameManager;
+import com.company.board.Board;
 import com.company.board.Tile;
-import com.company.piece.Piece;
 
 import java.awt.Point;
 
 public abstract class Move {
     public Point start;
-    private Point end;
+    public Point end;
     private MoveType type;
     
     public Move(Point start, Point end, MoveType type){
@@ -35,13 +34,8 @@ public abstract class Move {
         return false;
     }
 
-    public void handleMove(GameManager gameManager, Tile target) {
-        Piece pieceToMove = gameManager.getTile(this.start).getPiece();
-        // 1. Set the piece to move tile to empty.
-        gameManager.getBoard().setTile(pieceToMove.getPosition(), new Tile(pieceToMove.getPosition()));
-        // 2. Set the move location tile to the piece.
-        pieceToMove.move(this);
-        target.setPiece(pieceToMove);
+    public void handleMove(Board board) {
+        board.handleMove(this);
     }
 
     public abstract Tile.TILE_HIGHLIGHT getTileHighlight();
@@ -51,5 +45,7 @@ public abstract class Move {
         return "S: " + start + "\t E: " + end;
     }
 
-    public abstract void undo(GameManager gm);
+    public abstract void undo(Board board);
+
+    public abstract Move copy();
 }

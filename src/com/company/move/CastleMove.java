@@ -1,6 +1,5 @@
 package com.company.move;
 
-import com.company.GameManager;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.piece.Piece;
@@ -13,8 +12,8 @@ public class CastleMove extends SpecialMove {
     }
 
     @Override
-    public void handleMove(GameManager gameManager, Tile target) {
-        Board board = gameManager.getBoard();
+    public void handleMove(Board board) {
+        Tile target = board.getTile(end);
         Piece rook;
         Point rookFinalPosition;
 
@@ -28,22 +27,27 @@ public class CastleMove extends SpecialMove {
             rookFinalPosition = new Point(target.getPosition().x + 1, target.getPosition().y);
         }
 
-        Piece king = gameManager.getTile(start).getPiece();
+        Piece king = board.getTile(start).getPiece();
         king.move(this);
-        gameManager.getBoard().setTile(rook.getPosition(), new Tile(rook.getPosition()));
+        board.clearTile(rook.getPosition());
         rook.setPosition(rookFinalPosition);
 
         // Clear positions
-        gameManager.getBoard().setTile(start, new Tile(start));
-        gameManager.getBoard().setTile(target.getPosition(), new Tile(target.getPosition()));
-        gameManager.getBoard().setTile(rookFinalPosition, new Tile(rookFinalPosition));
+        board.clearTile(start);
+        board.clearTile(target.getPosition());
+        board.clearTile(rookFinalPosition);
 
-        gameManager.getBoard().getTile(target.getPosition()).setPiece(king);
-        gameManager.getBoard().getTile(rookFinalPosition).setPiece(rook);
+        board.getTile(target.getPosition()).setPiece(king);
+        board.getTile(rookFinalPosition).setPiece(rook);
     }
 
     @Override
-    public void undo(GameManager gm) {
-        System.err.println("Enpassant: Undo not implemented!");
+    public void undo(Board board) {
+
+    }
+
+    @Override
+    public Move copy() {
+        return new CastleMove(new Point(this.start), new Point(this.end));
     }
 }

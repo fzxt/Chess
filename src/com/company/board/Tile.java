@@ -8,6 +8,10 @@ import java.awt.Point;
 
 public class Tile {
 
+    public Tile deepCopy() {
+        return new Tile(this);
+    }
+
     public enum TILE_TYPE {
         LIGHT,
         DARK,
@@ -36,6 +40,18 @@ public class Tile {
                 || position.x % 2 == 1 && position.y % 2 == 1) ? TILE_TYPE.LIGHT : TILE_TYPE.DARK;
         this.highlight = TILE_HIGHLIGHT.NONE;
         this.move = null;
+    }
+
+    public Tile(Tile tile) {
+        if (!tile.isEmpty()) {
+            this.piece = tile.getPiece().copy();
+        }
+        if (tile.move != null) {
+            this.move = tile.move.copy();
+        }
+        this.color = tile.color;
+        this.position = new Point(tile.position);
+        this.highlight = tile.highlight;
     }
 
     public Tile(Piece piece) {

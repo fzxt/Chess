@@ -13,6 +13,20 @@ public class Bishop extends Piece {
     }
 
     @Override
+    public int[][] positionTable() {
+        return new int[][] {
+                { -20,-10,-10,-10,-10,-10,-10,-20 },
+                { -10,  0,  0,  0,  0,  0,  0,-10 },
+                { -10,  0,  5, 10, 10,  5,  0,-10 },
+                { -10,  5,  5, 10, 10,  5,  5,-10 },
+                { -10,  0, 10, 10, 10, 10,  0,-10 },
+                { -10, 10, 10, 10, 10, 10, 10,-10 },
+                { -10,  5,  0,  0,  0,  0,  5,-10 },
+                { -20,-10,-10,-10,-10,-10,-10,-20 }
+        };
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         int[][] directionOffsets = {
                 {1, 1}, // diagUpRight
@@ -22,5 +36,10 @@ public class Bishop extends Piece {
         };
 
         return getMovesInLine(board, directionOffsets);
+    }
+
+    @Override
+    public Piece copy() {
+        return new Bishop(this.getTeam(), new Point(this.getPosition()));
     }
 }

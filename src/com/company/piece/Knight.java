@@ -15,6 +15,20 @@ public class Knight extends Piece {
     }
 
     @Override
+    public int[][] positionTable() {
+        return new int[][] {
+                { -50,-40,-30,-30,-30,-30,-40,-50 },
+                { -40,-20,  0,  0,  0,  0,-20,-40 },
+                { -30,  0, 10, 15, 15, 10,  0,-30 },
+                { -30,  5, 15, 20, 20, 15,  5,-30 },
+                { -30,  0, 15, 20, 20, 15,  0,-30 },
+                { -30,  5, 10, 15, 15, 10,  5,-30 },
+                { -40,-20,  0,  5,  5,  0,-20,-40 },
+                { -50,-40,-30,-30,-30,-30,-40,-50 }
+        };
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
@@ -40,6 +54,11 @@ public class Knight extends Piece {
             }
         }
         return moves;
+    }
+
+    @Override
+    public Piece copy() {
+        return new Knight(this.getTeam(), new Point(this.getPosition()));
     }
 
     private Point generatePos(int x, int y) {

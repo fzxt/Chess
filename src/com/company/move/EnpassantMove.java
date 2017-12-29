@@ -1,30 +1,26 @@
 package com.company.move;
 
-import com.company.GameManager;
 import com.company.Team;
-import com.company.board.Tile;
+import com.company.board.Board;
 import com.company.piece.Piece;
 
 import java.awt.*;
 
-public class EnpassantMove extends SpecialMove {
+public class EnpassantMove extends AttackMove {
     public EnpassantMove(Point start, Point end) {
         super(start, end, MoveType.ENPASSANT);
     }
 
     @Override
-    public void handleMove(GameManager gameManager, Tile target) {
-        super.handleMove(gameManager, target);
-        Point targetPosition = target.getPosition();
-        int direction = gameManager.getCurrentPlayer().getTeam() == Team.WHITE ? 1 : -1;
-        Piece attackedPiece = gameManager.getTile(targetPosition.x, targetPosition.y+direction).getPiece();
-        // Clear tile
-        gameManager.setTile(attackedPiece.getPosition(), new Tile(attackedPiece.getPosition()));
-        gameManager.removePieceFromGame(attackedPiece);
+    public void handleMove(Board board) {
+        int direction = board.getTile(start).getPiece().getTeam() == Team.WHITE ? 1 : -1;
+        Piece attackedPiece = board.getTile(end.x, end.y+direction).getPiece();
+        board.getTile(attackedPiece.getPosition()).setPiece(null);
+        super.handleMove(board);
     }
 
     @Override
-    public void undo(GameManager gm) {
-        System.err.println("Enpassant: Undo not implemented!");
+    public Move copy() {
+        return new EnpassantMove(new Point(this.start), new Point(this.end));
     }
 }

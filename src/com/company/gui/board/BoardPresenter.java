@@ -3,6 +3,7 @@ package com.company.gui.board;
 import com.company.Game;
 import com.company.GameManager;
 import com.company.Player;
+import com.company.ai.AI;
 import com.company.board.*;
 import com.company.move.Move;
 import com.company.piece.Pawn;
@@ -15,11 +16,13 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
     private final BoardGUIContract.View view;
     private final GameManager gameManager;
     private final Game game;
+    private final AI ai;
 
-    public BoardPresenter(BoardGUIContract.View view, GameManager gameManager, Game game) {
+    public BoardPresenter(BoardGUIContract.View view, GameManager gameManager, Game game, AI ai) {
         this.gameManager = gameManager;
         this.view = view;
         this.game = game;
+        this.ai = ai;
         view.setPresenter(this);
     }
 
@@ -65,7 +68,7 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
             // It means they clicked a tile with a piece that is highlighted, i.e an attacking move.
             // Or they clicked a tile without a piece that is highlighted
             Move move = tile.getMove();
-            move.handleMove(gameManager, tile);
+            move.handleMove(gameManager.getBoard());
 
             // Check for pawn promotion
             if (gameManager.getSelectedPiece().getType() == PieceType.PAWN) {
@@ -76,6 +79,7 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
             }
 
             gameManager.unhighlightBoard();
+            handleAIMove();
             gameManager.nextTurn();
             view.updateBoard(gameManager.getBoard());
         } else {
@@ -85,9 +89,14 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
 
     }
 
+    private void handleAIMove() {
+        Move aiMove = ai.bestMove(gameManager.getBoard());
+        aiMove.handleMove(gameManager.getBoard());
+        gameManager.nextTurn();
+    }
+
     private void showAvailableMoves(Piece piece) {
         for (Move move : piece.getAvailableMoves(gameManager.getBoard())) {
-            System.out.println(move);
             Point movePoint = new Point(move.getEnd().x, move.getEnd().y);
             Tile startTile = gameManager.getTile(piece.getPosition());
             startTile.setHighlight(Tile.TILE_HIGHLIGHT.GREEN);
