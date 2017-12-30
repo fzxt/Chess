@@ -103,12 +103,10 @@ public class AI {
                         score += piece.getValue();
                         score += valueOfPosition(piece);
                         score -= depth;
-//                        score += new java.util.Random().nextInt(4);
                     } else {
                         score -= piece.getValue();
                         score -= valueOfPosition(piece);
                         score += depth;
-//                        score -= new java.util.Random().nextInt(4);
                     }
                 }
             }
