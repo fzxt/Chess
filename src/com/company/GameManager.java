@@ -5,12 +5,15 @@ import com.company.board.Tile;
 import com.company.move.Move;
 import com.company.move.MoveHistory;
 import com.company.piece.Piece;
+import com.company.piece.PieceType;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class GameManager {
     private static GameManager instance;
+    private Point whiteKingPosition;
+    private Point blackKingPosition;
     private Player currentPlayer;
 
     private Player white;
@@ -26,7 +29,18 @@ public class GameManager {
         this.black = new Player(Team.BLACK);
         this.currentPlayer = white;
         this.board = new Board(white, black);
+        this.blackKingPosition = new Point(4, 0);
+        this.whiteKingPosition = new Point(4, 7);
         this.deadPieces = new ArrayList<>();
+        this.selectedPiece = null;
+    }
+
+    private GameManager(Board board) {
+        this.white = new Player(Team.WHITE);
+        this.black = new Player(Team.BLACK);
+        this.currentPlayer = white;
+        this.board = board;
+        findAndUpdateKingPosition(this.board);
         this.selectedPiece = null;
     }
 
@@ -36,22 +50,6 @@ public class GameManager {
         }
 
         return instance;
-    }
-
-    public static GameManager getInstanceWithBoard(Board board) {
-        if (instance == null) {
-            instance = new GameManager(board);
-        }
-
-        return instance;
-    }
-
-    private GameManager(Board board) {
-        this.white = new Player(Team.WHITE);
-        this.black = new Player(Team.BLACK);
-        this.currentPlayer = white;
-        this.board = board;
-        this.selectedPiece = null;
     }
 
     public Player getCurrentPlayer() {
@@ -68,6 +66,30 @@ public class GameManager {
 
     public void setSelectedPiece(Piece selectedPiece) {
         this.selectedPiece = selectedPiece;
+    }
+
+    private void findAndUpdateKingPosition(Board board) {
+        for (Tile[] tiles : board.getBoard()) {
+            for (Tile tile : tiles) {
+                if (!tile.isEmpty()) {
+                    Piece piece = tile.getPiece();
+                    if (piece.getType() == PieceType.KING) {
+                        updateKingPosition(piece);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean inCheck(Team team) {
+        Point kingPosition = team == Team.WHITE ? whiteKingPosition : blackKingPosition;
+        if (board.tileAtPointIsThreatened(team, kingPosition)) {
+            if (board.getTile(kingPosition).getPiece().getAvailableMoves(board).isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void removePieceFromGame(Move move, Piece piece) {
@@ -111,16 +133,16 @@ public class GameManager {
         return getBoard().getTile(pos);
     }
 
-    public int getMoveCount() {
-        return MoveHistory.getInstance().getMoveHistory().size();
-    }
-
-    public void toggleTeam() {
-        currentPlayer = currentPlayer == white ? black : white;
-    }
-
     public void undo() {
         MoveHistory.getInstance().popLastMove().undo(getBoard());
+    }
+
+    public void updateKingPosition(Piece king) {
+        if (king.getTeam() == Team.WHITE) {
+            this.whiteKingPosition = king.getPosition();
+        } else {
+            this.blackKingPosition = king.getPosition();
+        }
     }
 
     private class AttackMoveLog {
@@ -130,10 +152,6 @@ public class GameManager {
         public AttackMoveLog(Move move, Piece piece) {
             this.attackMove = move;
             this.piece = piece;
-        }
-
-        public Move getAttackMove() {
-            return attackMove;
         }
 
         public Piece getPiece() {
