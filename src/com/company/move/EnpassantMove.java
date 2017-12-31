@@ -3,6 +3,7 @@ package com.company.move;
 import com.company.GameManager;
 import com.company.Team;
 import com.company.board.Board;
+import com.company.board.Tile;
 import com.company.piece.Piece;
 
 import java.awt.*;
@@ -24,5 +25,10 @@ public class EnpassantMove extends AttackMove {
     @Override
     public Move copy() {
         return new EnpassantMove(new Point(this.start), new Point(this.end));
+    }
+
+    @Override
+    public Tile.TILE_HIGHLIGHT getTileHighlight() {
+        return Tile.TILE_HIGHLIGHT.YELLOW;
     }
 }

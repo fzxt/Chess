@@ -24,7 +24,6 @@ public class NormalMove extends Move {
     @Override
     public void undo(Board board) {
         Tile to = board.getTile(end);
-        System.out.println(to);
         Piece movedPiece = to.getPiece();
         movedPiece.setPosition(start);
         board.getTile(start).setPiece(movedPiece);

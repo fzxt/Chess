@@ -57,14 +57,20 @@ public class King extends Piece {
             }
         }
 
+        // TODO: Fix castling.
         if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
             int x = this.getPosition().x;
             int y = this.getPosition().y;
 
             for (int direction = -1; direction <= 1; direction += 2) {
-                if (board.getTile(x + direction, y).isEmpty() && board.getTile(x + (2 * direction), y).isEmpty()) {
-                    int potentialX = direction < 0 ? x - 4 : x + 3;
-                    Tile potentialRook = board.getTile(potentialX, y);
+                int left = x + direction;
+                int right = x + (2 * direction);
+                if (left < 0 || right < 0 || right > 7 || left > 7) {
+                    break;
+                }
+                if (board.getTile(left, y).isEmpty() && board.getTile(right, y).isEmpty()) {
+                    int potentialX = direction < 0 ? 0 : 7;
+                    Tile potentialRook = board.getTile(new Point(potentialX, y));
                     if (!potentialRook.isEmpty() && potentialRook.getPiece().getType() == PieceType.ROOK) {
                         Piece rook = potentialRook.getPiece();
                         if (rook.getNumMoves() == 0) {

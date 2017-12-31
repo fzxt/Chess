@@ -83,13 +83,8 @@ public class GameManager {
 
     public boolean inCheck(Team team) {
         Point kingPosition = team == Team.WHITE ? whiteKingPosition : blackKingPosition;
-        if (board.tileAtPointIsThreatened(team, kingPosition)) {
-            if (board.getTile(kingPosition).getPiece().getAvailableMoves(board).isEmpty()) {
-                return true;
-            }
-        }
-
-        return false;
+        // If the tile of the players king is threatened, then we are in check.
+        return board.tileIsThreatened(team, board.getTile(kingPosition));
     }
 
     public void removePieceFromGame(Move move, Piece piece) {

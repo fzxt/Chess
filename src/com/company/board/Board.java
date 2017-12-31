@@ -139,9 +139,14 @@ public class Board {
         getTile(start).setPiece(null);
     }
 
+    public boolean tileIsThreatened(Team team, Tile tile) {
+        return tileAtPointIsThreatened(team, tile.getPosition());
+    }
+
     public boolean tileAtPointIsThreatened(Team goodTeam, Point tilePos) {
         int threatenedRow = tilePos.x;
         int threatenedCol = tilePos.y;
+
         int[] rowDirections = {-1, -1, -1, 0, 0, 1, 1, 1};
         int[] colDirections = {-1, 0, 1, -1, 1, -1, 0, 1};
 
@@ -168,19 +173,25 @@ public class Board {
                                 // Handle knights differently. Just compute the moves and check if the tile is there
                                 ArrayList<Move> moves = piece.getAvailableMoves(this);
                                 for (Move move : moves) {
-                                    if (move.getEnd() == tilePos && move.getType() == MoveType.ATTACK) return true;
+                                    if (!getTile(move.end).isEmpty()) {
+                                        Piece potentialKing = getTile(move.end).getPiece();
+                                        if (potentialKing.getType() == PieceType.KING && potentialKing.getTeam() == goodTeam) {
+                                            return true;
+                                        }
+                                    }
                                 }
-                            } else if (step == 0 &&
-                                    (piece.getType() == PieceType.PAWN || piece.getType() == PieceType.KING)) {
-                                    if (piece.positionThreats()[direction]) return true;
-                                } else {
-                                    if (piece.positionThreats()[direction]) return true;
-                                }
+                            } else if (piece.getType() != PieceType.PAWN && piece.getType() != PieceType.KING) {
+                                if (piece.positionThreats()[direction]) return true;
+                            } else if (step == 0) {
+                                if (piece.positionThreats()[direction]) return true;
                             }
                         }
+
+                        break;
                     }
                 }
             }
+        }
 
         return false;
     }

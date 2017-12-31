@@ -19,11 +19,11 @@ public class CastleMove extends SpecialMove {
 
         if (target.getPosition().x > this.start.x) {
             // Rook on the right side
-            rook = board.getTile(target.getPosition().x + 1, target.getPosition().y).getPiece();
+            rook = board.getTile(7, target.getPosition().y).getPiece();
             rookFinalPosition = new Point(target.getPosition().x - 1, target.getPosition().y);
         } else {
             // Rook on the left side
-            rook = board.getTile(target.getPosition().x - 2, target.getPosition().y).getPiece();
+            rook = board.getTile(0, target.getPosition().y).getPiece();
             rookFinalPosition = new Point(target.getPosition().x + 1, target.getPosition().y);
         }
 

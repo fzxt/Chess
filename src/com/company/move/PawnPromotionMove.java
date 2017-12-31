@@ -8,7 +8,7 @@ import java.awt.*;
 public class PawnPromotionMove extends NormalMove {
 
     public PawnPromotionMove(Point start, Point end) {
-        super(start, end);
+        super(start, end, MoveType.PAWN_PROMOTION);
     }
 
     @Override
@@ -18,6 +18,7 @@ public class PawnPromotionMove extends NormalMove {
 
     @Override
     public void undo(Board board) {
+        // TODO: Implement undo
     }
 
     @Override
