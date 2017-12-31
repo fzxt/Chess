@@ -27,6 +27,11 @@ public class Queen extends Piece {
     }
 
     @Override
+    public boolean[] positionThreats() {
+        return new boolean[] {true, true, true, true, true, true, true, true};
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         int[][] directionOffsets = {
                 {0, 1}, // Up

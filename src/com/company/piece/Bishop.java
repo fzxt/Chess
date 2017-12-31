@@ -27,6 +27,11 @@ public class Bishop extends Piece {
     }
 
     @Override
+    public boolean[] positionThreats() {
+        return new boolean[]{ true, false, true, false, false, true, false, true };
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         int[][] directionOffsets = {
                 {1, 1}, // diagUpRight

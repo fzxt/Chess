@@ -3,9 +3,11 @@ package com.company.board;
 import com.company.Player;
 import com.company.Team;
 import com.company.move.Move;
+import com.company.move.MoveType;
 import com.company.piece.*;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import static com.company.board.Tile.TILE_HIGHLIGHT.NONE;
 
@@ -135,5 +137,55 @@ public class Board {
 
     public void clearTile(Point start) {
         getTile(start).setPiece(null);
+    }
+
+    public boolean tileAtPointIsThreatened(Team goodTeam, Point tilePos) {
+        int threatenedRow = tilePos.x;
+        int threatenedCol = tilePos.y;
+        int[] rowDirections = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] colDirections = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        for (int direction = 0; direction < 8; direction++) {
+            int row = threatenedRow;
+            int col = threatenedCol;
+
+
+            int rowIncrement = rowDirections[direction];
+            int colIncrement = colDirections[direction];
+
+            for (int step = 0; step < 8; step++) {
+                row = row + rowIncrement;
+                col = col + colIncrement;
+
+                if (outOfBounds(row, col)) {
+                    break;
+                } else {
+                    Tile t = getTile(row, col);
+                    if (!t.isEmpty()) {
+                        Piece piece = t.getPiece();
+                        if (piece.getTeam() != goodTeam) {
+                            if (piece instanceof Knight) {
+                                // Handle knights differently. Just compute the moves and check if the tile is there
+                                ArrayList<Move> moves = piece.getAvailableMoves(this);
+                                for (Move move : moves) {
+                                    if (move.getEnd() == tilePos && move.getType() == MoveType.ATTACK) return true;
+                                }
+                            } else if (step == 0 &&
+                                    (piece.getType() == PieceType.PAWN || piece.getType() == PieceType.KING)) {
+                                    if (piece.positionThreats()[direction]) return true;
+                                } else {
+                                    if (piece.positionThreats()[direction]) return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        return false;
+    }
+
+    private boolean outOfBounds(int row, int col) {
+        return row < 0 || row > 7 || col < 0 || col > 7;
     }
 }

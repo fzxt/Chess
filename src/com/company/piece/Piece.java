@@ -1,5 +1,6 @@
 package com.company.piece;
 
+import com.company.GameManager;
 import com.company.Team;
 import com.company.board.*;
 import com.company.move.*;
@@ -42,12 +43,17 @@ public abstract class Piece {
     }
 
     public void move(Move move) {
+        if (type == PieceType.KING) {
+            GameManager.getInstance().updateKingPosition(this);
+        }
+
         this.numMoves++;
         MoveHistory.getInstance().addMove(move);
         this.position = move.getEnd();
     }
 
     public abstract int[][] positionTable();
+    public abstract boolean[] positionThreats();
 
     public int getNumMoves() {
         return numMoves;

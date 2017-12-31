@@ -105,6 +105,12 @@ public class Pawn extends Piece {
         };
     }
 
+    @Override
+    public boolean[] positionThreats() {
+        boolean diag = getTeam() == Team.WHITE;
+        return new boolean[] {!diag, false, !diag, false, false, diag, false, diag};
+    }
+
     private boolean sameType(Piece piece) {
         return this.getType() == piece.getType();
     }

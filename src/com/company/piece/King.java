@@ -31,6 +31,11 @@ public class King extends Piece {
     }
 
     @Override
+    public boolean[] positionThreats() {
+        return new boolean[] {true, true, true, true, true, true, true, true};
+    }
+
+    @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
@@ -52,8 +57,6 @@ public class King extends Piece {
             }
         }
 
-//        // Castling
-//        // You can only castle at the start
         if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
             int x = this.getPosition().x;
             int y = this.getPosition().y;

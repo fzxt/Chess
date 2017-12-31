@@ -28,6 +28,15 @@ public class Knight extends Piece {
         };
     }
 
+    /**
+     * Unused for knight
+     * @return
+     */
+    @Override
+    public boolean[] positionThreats() {
+        return new boolean[0];
+    }
+
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
