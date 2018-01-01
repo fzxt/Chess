@@ -88,7 +88,7 @@ public class Pawn extends Piece {
     }
 
     private Move createEnpassantMove(Point target) {
-        return new EnpassantMove(this.startPosition, target.getLocation());
+        return new EnpassantMove(this.getPosition(), target.getLocation());
     }
 
     @Override

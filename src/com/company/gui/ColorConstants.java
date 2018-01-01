@@ -14,6 +14,8 @@ public class ColorConstants {
     private static final Color darkBlueOuter = new Color(150, 219, 239);
     private static final Color lightRedFill = new Color(255, 171, 145);
     private static final Color darkRedOuter = new Color(255, 140, 130);
+    private static final Color lightOrangeFill = new Color(255, 208, 109);
+    private static final Color darkOrangeOuter = new Color(255, 182, 44);
     private static final Color lightGreenFill = new Color(128,203,196);
     private static final Color darkGreenOuter = new Color(102, 162, 156);
     private static final Color lightYellowFill = new Color(255, 241, 118);
@@ -30,6 +32,16 @@ public class ColorConstants {
     static final Color[] normalColorsDarkTile = {
             getSimulatedAlphaColor(DARK, lightBlueFill),
             getSimulatedAlphaColor(DARK, darkBlueOuter)
+    };
+
+    static final Color[] inCheckColorsLightTile = {
+            getSimulatedAlphaColor(LIGHT, lightOrangeFill),
+            getSimulatedAlphaColor(LIGHT, darkOrangeOuter)
+    };
+
+    static final Color[] inCheckColorsDarkTile = {
+            getSimulatedAlphaColor(DARK, lightOrangeFill),
+            getSimulatedAlphaColor(DARK, darkOrangeOuter)
     };
 
     static final Color[] specialColorsLightTile = {

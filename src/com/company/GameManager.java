@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class GameManager {
     private static GameManager instance;
-    private Point whiteKingPosition;
-    private Point blackKingPosition;
+    public Point whiteKingPosition;
+    public Point blackKingPosition;
     private Player currentPlayer;
 
     private Player white;
@@ -23,6 +23,8 @@ public class GameManager {
 
     private Piece selectedPiece;
     private ArrayList<AttackMoveLog> deadPieces;
+    private boolean gameOver;
+    private Team winner;
 
     private GameManager() {
         this.white = new Player(Team.WHITE);
@@ -31,6 +33,8 @@ public class GameManager {
         this.board = new Board(white, black);
         this.blackKingPosition = new Point(4, 0);
         this.whiteKingPosition = new Point(4, 7);
+        this.gameOver = false;
+        this.winner = null;
         this.deadPieces = new ArrayList<>();
         this.selectedPiece = null;
     }
@@ -138,6 +142,19 @@ public class GameManager {
         } else {
             this.blackKingPosition = king.getPosition();
         }
+    }
+
+    public boolean gameOver() {
+        return gameOver;
+    }
+
+    public void endGame(Team winner) {
+        this.gameOver = true;
+        this.winner = winner;
+    }
+
+    public void printWinner() {
+        System.out.println("The winner is TEAM " + winner);
     }
 
     private class AttackMoveLog {

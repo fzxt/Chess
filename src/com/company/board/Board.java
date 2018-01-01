@@ -174,9 +174,10 @@ public class Board {
                                 // Handle knights differently. Just compute the moves and check if the tile is there
                                 ArrayList<Move> moves = piece.getAvailableMoves(this);
                                 for (Move move : moves) {
-                                    if (!getTile(move.end).isEmpty()) {
+                                    if (move.getType() == MoveType.ATTACK) {
                                         Piece potentialKing = getTile(move.end).getPiece();
                                         if (potentialKing.getType() == KING && potentialKing.getTeam() == goodTeam) {
+                                            System.out.println("Knight can attack your king!");
                                             return true;
                                         }
                                     }

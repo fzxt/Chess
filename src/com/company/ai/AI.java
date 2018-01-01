@@ -92,6 +92,7 @@ public class AI {
         return results;
     }
 
+    // TODO: Change scoring method
     private double score(Team team, Board board, int depth) {
         int score = 0;
 

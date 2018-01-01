@@ -22,7 +22,8 @@ public class Tile {
         BLUE,
         YELLOW,
         RED,
-        GREEN
+        GREEN,
+        ORANGE
     }
 
     private final Point position;

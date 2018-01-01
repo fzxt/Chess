@@ -22,7 +22,6 @@ public class GUIUtils {
 
     public GUIUtils() {
         map = new HashMap<>();
-        //  TODO: Put this logic inside the Pieces themselves.
         map.put(PieceType.PAWN, new String[] { getImageIconFilePath("bp"), getImageIconFilePath("wp" )} );
         map.put(PieceType.ROOK, new String[] { getImageIconFilePath("br"), getImageIconFilePath("wr") } );
         map.put(PieceType.KING, new String[] { getImageIconFilePath("bk"), getImageIconFilePath("wk") } );
@@ -126,6 +125,8 @@ public class GUIUtils {
                 return tileType == LIGHT ? attackColorsLightTile : attackColorsDarkTile;
             case GREEN:
                 return tileType == LIGHT ? selectedColorsLightTile : selectedColorsDarkTile;
+            case ORANGE:
+                return tileType == LIGHT ? inCheckColorsLightTile : inCheckColorsDarkTile;
             case NONE:
             default:
                 return new Color[]{ new Color(0, 0, 0), new Color(0, 0, 0)};

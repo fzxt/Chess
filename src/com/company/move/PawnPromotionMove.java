@@ -2,6 +2,8 @@ package com.company.move;
 
 import com.company.board.Board;
 import com.company.board.Tile;
+import com.company.piece.Pawn;
+import com.company.piece.Piece;
 
 import java.awt.*;
 
@@ -18,7 +20,18 @@ public class PawnPromotionMove extends NormalMove {
 
     @Override
     public void undo(Board board) {
-        // TODO: Implement undo
+        Tile starting = board.getTile(start);
+        Tile ending = board.getTile(end);
+
+        // Get the promoted piece
+        Piece promoted = ending.getPiece();
+
+        // Clear the ending tile
+        ending.setPiece(null);
+
+        // Set starting to the pawn
+        Pawn pawn = new Pawn(promoted.getTeam(), promoted.getPosition());
+        starting.setPiece(pawn);
     }
 
     @Override

@@ -57,7 +57,6 @@ public class King extends Piece {
             }
         }
 
-        // TODO: Fix castling.
         if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
             int x = this.getPosition().x;
             int y = this.getPosition().y;
