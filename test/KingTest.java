@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KingTest {
 
-    // TODO: Test castling
-
     @Test
     public void getAvailableMoves() throws Exception {
         Board board = TestUtils.createEmptyBoard();

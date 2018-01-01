@@ -8,6 +8,10 @@ import java.awt.Point;
 
 public class Tile {
 
+    public Tile copy() {
+        return new Tile(this);
+    }
+
     public enum TILE_TYPE {
         LIGHT,
         DARK,
@@ -18,7 +22,8 @@ public class Tile {
         BLUE,
         YELLOW,
         RED,
-        GREEN
+        GREEN,
+        ORANGE
     }
 
     private final Point position;
@@ -38,6 +43,18 @@ public class Tile {
         this.move = null;
     }
 
+    public Tile(Tile tile) {
+        if (!tile.isEmpty()) {
+            this.piece = tile.getPiece().copy();
+        }
+        if (tile.move != null) {
+            this.move = tile.move.copy();
+        }
+        this.color = tile.color;
+        this.position = new Point(tile.position);
+        this.highlight = tile.highlight;
+    }
+
     public Tile(Piece piece) {
         this.piece = piece;
         this.position = piece.getPosition();
@@ -52,10 +69,6 @@ public class Tile {
 
     public Point getPosition() {
         return position;
-    }
-
-    public Point getPiecePosition() {
-        return this.piece.getPosition();
     }
 
     public boolean isEmpty() {

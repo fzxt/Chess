@@ -1,5 +1,6 @@
 package com.company.piece;
 
+import com.company.GameManager;
 import com.company.Team;
 import com.company.board.*;
 import com.company.move.*;
@@ -42,10 +43,17 @@ public abstract class Piece {
     }
 
     public void move(Move move) {
+        if (type == PieceType.KING) {
+            GameManager.getInstance().updateKingPosition(this);
+        }
+
         this.numMoves++;
-        MoveHistory.addMove(move);
+        MoveHistory.getInstance().addMove(move);
         this.position = move.getEnd();
     }
+
+    public abstract int[][] positionTable();
+    public abstract boolean[] positionThreats();
 
     public int getNumMoves() {
         return numMoves;
@@ -103,7 +111,7 @@ public abstract class Piece {
 
     @Override
     public String toString() {
-        return getTeam() + " " + getType();
+        return getTeam() + " " + getType() + " " + getPosition();
     }
 
     @Override
@@ -115,4 +123,6 @@ public abstract class Piece {
     public int hashCode() {
         return Objects.hashCode(this);
     }
+
+    public abstract Piece copy();
 }

@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.ai.AI;
 import com.company.gui.board.BoardPresenter;
 import com.company.gui.board.BoardView;
 import com.company.gui.promotion.PromotionPresenter;
@@ -14,8 +15,9 @@ public class Game {
     PromotionPresenter promotionPresenter;
 
     public Game() {
-        gameManager = new GameManager();
-        boardPresenter = new BoardPresenter(new BoardView(), gameManager, this);
+        gameManager = GameManager.getInstance();
+        AI ai = new AI(4);
+        boardPresenter = new BoardPresenter(new BoardView(), gameManager, this, ai);
     }
 
     public void showPawnPromotionView() {

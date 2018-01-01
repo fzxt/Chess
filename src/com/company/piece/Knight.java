@@ -11,7 +11,30 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
     public Knight(Team team, Point position) {
-        super(team, 3, PieceType.KNIGHT, position);
+        super(team, 30, PieceType.KNIGHT, position);
+    }
+
+    @Override
+    public int[][] positionTable() {
+        return new int[][] {
+                { -50,-40,-30,-30,-30,-30,-40,-50 },
+                { -40,-20,  0,  0,  0,  0,-20,-40 },
+                { -30,  0, 10, 15, 15, 10,  0,-30 },
+                { -30,  5, 15, 20, 20, 15,  5,-30 },
+                { -30,  0, 15, 20, 20, 15,  0,-30 },
+                { -30,  5, 10, 15, 15, 10,  5,-30 },
+                { -40,-20,  0,  5,  5,  0,-20,-40 },
+                { -50,-40,-30,-30,-30,-30,-40,-50 }
+        };
+    }
+
+    /**
+     * Unused for knight
+     * @return
+     */
+    @Override
+    public boolean[] positionThreats() {
+        return new boolean[0];
     }
 
     @Override
@@ -40,6 +63,11 @@ public class Knight extends Piece {
             }
         }
         return moves;
+    }
+
+    @Override
+    public Piece copy() {
+        return new Knight(this.getTeam(), new Point(this.getPosition()));
     }
 
     private Point generatePos(int x, int y) {

@@ -2,6 +2,7 @@ import com.company.Team;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.move.Move;
+import com.company.move.MoveType;
 import com.company.move.NormalMove;
 import com.company.piece.Pawn;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PawnTest {
-    // TODO: Test for EnPassant
     @Test
     public void getAvailableMoves() throws Exception {
         Board board = TestUtils.createEmptyBoard();
@@ -50,5 +50,43 @@ public class PawnTest {
 
         TestUtils.assertMovesMatch(expectedWhite, actualWhite);
         TestUtils.assertMovesMatch(expectedBlack, actualBlack);
+    }
+
+    @Test
+    public void enPassant() {
+        Board board = TestUtils.createEmptyBoard();
+        Point whiteStartingPoint = new Point(5, 6);
+        Point blackStartingPoint = new Point(4, 1);
+
+        Pawn white = new Pawn(Team.WHITE, whiteStartingPoint);
+        Pawn black = new Pawn(Team.BLACK, blackStartingPoint);
+
+        board.setTile(whiteStartingPoint, new Tile(white));
+        board.setTile(blackStartingPoint, new Tile(black));
+
+        // For enpassant to happen, the opponents last move needs to be a double move, where our last move was a single move.
+        // And the pawns need to be on either side.
+        NormalMove doubleMoveWhite = new NormalMove(whiteStartingPoint, new Point(5, 4), MoveType.NORMAL_DOUBLE);
+        white.move(doubleMoveWhite);
+        board.handleMove(doubleMoveWhite);
+
+        NormalMove singleMoveWhite = new NormalMove(new Point(5, 4), new Point(5, 3));
+        white.move(singleMoveWhite);
+        board.handleMove(singleMoveWhite);
+
+        NormalMove doubleMove = new NormalMove(blackStartingPoint, new Point(4, 3), MoveType.NORMAL_DOUBLE);
+        black.move(doubleMove);
+        board.handleMove(doubleMove);
+
+        // Our assertion will simply be to check if a enpassant move is available for the white pawn.
+        boolean containsEnpassant = false;
+        ArrayList<Move> moves = white.getAvailableMoves(board);
+        for (Move move : moves) {
+            if (move.getType() == MoveType.ENPASSANT) {
+                containsEnpassant = true;
+            }
+        }
+
+        assertEquals(true, containsEnpassant);
     }
 }

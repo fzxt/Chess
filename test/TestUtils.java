@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUtils {
 
+    static Board createRegularBoard() {
+        return new Board(new Player(Team.WHITE), new Player(Team.BLACK));
+    }
+
     static Board createEmptyBoard() {
         Board board = new Board(new Player(Team.WHITE), new Player(Team.BLACK));
 

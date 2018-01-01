@@ -10,5 +10,6 @@ public enum MoveType {
     NORMAL_DOUBLE,
     ATTACK,
     ENPASSANT,
-    CASTLE
+    CASTLE,
+    PAWN_PROMOTION
 }

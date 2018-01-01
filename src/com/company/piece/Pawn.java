@@ -53,8 +53,7 @@ public class Pawn extends Piece {
                         if (!sideTile.isEmpty()) {
                             Piece sidePiece = sideTile.getPiece();
                             if (sameType(sidePiece) && !sameTeam(sidePiece)) {
-                                // TODO: Change to use GameManager move history stack
-                                Move lastMove = MoveHistory.getLastMove();
+                                Move lastMove = MoveHistory.getInstance().popLastMove();
                                 Point lastPos = lastMove.getEnd();
                                 Point sidePos = sideTile.getPosition();
                                 if (lastMove.getType() == MoveType.NORMAL_DOUBLE && sidePos.equals(lastPos)) {
@@ -79,12 +78,37 @@ public class Pawn extends Piece {
         return moves;
     }
 
+    @Override
+    public Piece copy() {
+        return new Pawn(this.getTeam(), new Point(this.getPosition()));
+    }
+
     public boolean promotePawn() {
         return getTeam() == Team.WHITE && getPosition().y == 0 || getTeam() == Team.BLACK && getPosition().y == 7;
     }
 
     private Move createEnpassantMove(Point target) {
-        return new EnpassantMove(this.startPosition, target.getLocation());
+        return new EnpassantMove(this.getPosition(), target.getLocation());
+    }
+
+    @Override
+    public int[][] positionTable() {
+        return new int[][] {
+                {  0,  0,  0,  0,  0,  0,  0,  0 },
+                { 50, 50, 50, 50, 50, 50, 50, 50 },
+                { 10, 10, 20, 30, 30, 20, 10, 10 },
+                {  5,  5, 10, 25, 25, 10,  5,  5 },
+                {  0,  0,  0, 20, 20,  0,  0,  0 },
+                {  5, -5,-10,  0,  0,-10, -5,  5 },
+                {  5, 10, 10,-20,-20, 10, 10,  5 },
+                {  0,  0,  0,  0,  0,  0,  0,  0 }
+        };
+    }
+
+    @Override
+    public boolean[] positionThreats() {
+        boolean diag = getTeam() == Team.WHITE;
+        return new boolean[] { !diag, false, !diag, false, false, diag, false, diag };
     }
 
     private boolean sameType(Piece piece) {
