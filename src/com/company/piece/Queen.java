@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Queen extends Piece {
 
     public Queen(Team team, Point position){
-        super(team, 9, PieceType.QUEEN, position);
+        super(team, 90, PieceType.QUEEN, position);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Queen extends Piece {
 
     @Override
     public boolean[] positionThreats() {
-        return new boolean[] {true, true, true, true, true, true, true, true};
+        return new boolean[] { true, true, true, true, true, true, true, true };
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
     public Knight(Team team, Point position) {
-        super(team, 3, PieceType.KNIGHT, position);
+        super(team, 30, PieceType.KNIGHT, position);
     }
 
     @Override

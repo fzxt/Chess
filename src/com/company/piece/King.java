@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class King extends Piece {
     Point startPosition;
     public King(Team team, Point position) {
-        super(team, 100, PieceType.KING, position);
+        super(team, 900, PieceType.KING, position);
         this.startPosition = position;
     }
 
@@ -39,6 +39,7 @@ public class King extends Piece {
     public ArrayList<Move> getAvailableMoves(Board board) {
         ArrayList<Move> moves = new ArrayList<>();
 
+        // Regular & attacking moves
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 Point possiblePos = new Point(getPosition().x + i, getPosition().y + j);
@@ -57,6 +58,7 @@ public class King extends Piece {
             }
         }
 
+        // Castling
         if (this.getPosition() == this.startPosition && getNumMoves() == 0) {
             int x = this.getPosition().x;
             int y = this.getPosition().y;

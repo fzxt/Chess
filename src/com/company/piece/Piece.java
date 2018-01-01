@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 import java.util.Objects;
 
-// TODO: Change values for scoring
-
 public abstract class Piece {
     private Team team;
     private PieceType type;

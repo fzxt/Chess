@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Bishop extends Piece {
     public Bishop(Team team, Point position) {
-        super(team, 3, PieceType.BISHOP, position);
+        super(team, 30, PieceType.BISHOP, position);
     }
 
     @Override
@@ -34,10 +34,10 @@ public class Bishop extends Piece {
     @Override
     public ArrayList<Move> getAvailableMoves(Board board) {
         int[][] directionOffsets = {
-                {1, 1}, // diagUpRight
-                {-1, -1}, // diagDownLeft
-                {1, -1}, // diagDownRight
-                {-1, 1} // diagUpLeft
+                {1, 1}, // Upper right
+                {-1, -1}, // Bottom left
+                {1, -1}, // Bottom right
+                {-1, 1} // Upper left
         };
 
         return getMovesInLine(board, directionOffsets);

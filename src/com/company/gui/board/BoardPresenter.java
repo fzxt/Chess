@@ -57,15 +57,15 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
 
     @Override
     public void handleClickedTile(Tile tile) {
-        if (gameManager.gameOver()) {
+        if (gameManager.isGameOver()) {
             return;
         }
 
         if (!tile.isEmpty() && isClickablePiece(tile)) {
-            boolean inCheck = tile.getHighlight() == ORANGE;
-            gameManager.unhighlightBoard();
             // It means they clicked a tile with a piece and it's not highlighted
             // Or they clicked the king, who is in check
+            boolean inCheck = tile.getHighlight() == ORANGE;
+            gameManager.unhighlightBoard();
             Player currentPlayer = gameManager.getCurrentPlayer();
             Piece piece = tile.getPiece();
 
@@ -96,9 +96,9 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
                 handleGameOver(Team.WHITE);
                 move.handleMove(gameManager.getBoard());
                 return;
-            } else {
-                move.handleMove(gameManager.getBoard());
             }
+
+            move.handleMove(gameManager.getBoard());
 
             // Check for pawn promotion
             if (move.getType() == PAWN_PROMOTION) {
@@ -111,7 +111,7 @@ public class BoardPresenter implements BoardGUIContract.Presenter {
             gameManager.unhighlightBoard();
             handleAIMove();
 
-            if (gameManager.gameOver()) {
+            if (gameManager.isGameOver()) {
                 // Check if the AI ended the game already
                 return;
             }

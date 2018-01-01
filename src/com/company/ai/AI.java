@@ -19,18 +19,31 @@ public class AI {
         this.bestMove = null;
     }
 
+    /**
+     * Gets the best move via Alpha Beta
+     * @param board     Initial board
+     * @return          Best move the AI can make
+     */
     public Move bestMove(Board board) {
         alphaBetaPruning(board, Team.BLACK, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0);
         return bestMove;
     }
 
+    /**
+     * Recursive method for alpha beta pruning
+     * @param board     Board
+     * @param team      Team AI identifies with
+     * @param alpha     Alpha value (initially -inf)
+     * @param beta      Beta value (initially +inf)
+     * @param depth     Current depth (initially 0)
+     * @return          Alpha when maximizing, beta when minimizing
+     */
     private double alphaBetaPruning(Board board, Team team, double alpha, double beta, int depth) {
-        if (depth++ == maxDepth) {
-            return score(team, board, depth);
-        }
-
         boolean maximize = team == Team.BLACK;
 
+        if (depth++ == maxDepth) {
+            return score(maximize, board);
+        }
         ArrayList<Move> moves = getAllPossibleMoves(board, team);
 
         if (maximize) {
@@ -40,6 +53,7 @@ public class AI {
                 move.handleMove(copy);
                 double score = alphaBetaPruning(copy, switchTeam(team), alpha, beta, depth);
                 move.undo(copy);
+
                 if (score > alpha) {
                     alpha = score;
                     localBestMove = move;
@@ -75,6 +89,12 @@ public class AI {
         }
     }
 
+    /**
+     * Gets all possible moves that can be made on the board for a team
+     * @param board    board to make moves
+     * @param team     team to get moves for
+     * @return         List of available moves
+     */
     private ArrayList<Move> getAllPossibleMoves(Board board, Team team) {
         ArrayList<Move> results = new ArrayList<>();
 
@@ -92,35 +112,33 @@ public class AI {
         return results;
     }
 
-    // TODO: Change scoring method
-    private double score(Team team, Board board, int depth) {
+    /**
+     * Evaluates the board
+     * @param maximize      whether to add or subtract from score
+     * @param board         board to evaluate
+     * @return
+     */
+    private double score(boolean maximize, Board board) {
         int score = 0;
 
         for (Tile[] tiles : board.getBoard()) {
             for (Tile tile : tiles) {
                 if (!tile.isEmpty()) {
                     Piece piece = tile.getPiece();
-                    if (piece.getTeam() == team) {
-                        score += piece.getValue();
-                        score += valueOfPosition(piece);
-                        score -= depth;
+                    Point position = piece.getPosition();
+                    int x = (int) piece.getPosition().getX();
+                    int y = (int) ((piece.getTeam() == Team.WHITE) ? (position.getY()) : (7 - position.getY()));
+
+                    if (maximize) {
+                        score += piece.getValue() + piece.positionTable()[y][x];
                     } else {
-                        score -= piece.getValue();
-                        score -= valueOfPosition(piece);
-                        score += depth;
+                        score -= piece.getValue() + piece.positionTable()[y][x];
                     }
                 }
             }
         }
 
         return score;
-    }
-
-    private int valueOfPosition(Piece piece) {
-        Point position = piece.getPosition();
-        int x = (int) position.getX();
-        int y = (int) ((piece.getTeam() == Team.WHITE) ? (position.getY()) : (7 - position.getY()));
-        return piece.positionTable()[y][x];
     }
 
     private Team switchTeam(Team team) {

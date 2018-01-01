@@ -18,10 +18,6 @@ public class MoveHistory {
         moveList.add(move);
     }
 
-    public Stack<Move> getMoveHistory() {
-        return moveList;
-    }
-
     public Move popLastMove() {
         return moveList.pop();
     }

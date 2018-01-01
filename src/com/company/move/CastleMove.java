@@ -3,6 +3,7 @@ package com.company.move;
 import com.company.board.Board;
 import com.company.board.Tile;
 import com.company.piece.Piece;
+import com.company.piece.PieceType;
 
 import java.awt.*;
 
@@ -43,7 +44,29 @@ public class CastleMove extends SpecialMove {
 
     @Override
     public void undo(Board board) {
+        // Find the king, then move him to the start
+        Piece king = board.getTile(end).getPiece();
+        // Find the rook, then move him either to the left end or the right end
+        Piece rook;
 
+        Tile leftFinalPosition = board.getTile(new Point(end.x + 1, end.y));
+        Tile rightFinalPosition = board.getTile(new Point(end.x - 1, end.y));
+
+        if (!leftFinalPosition.isEmpty() && leftFinalPosition.getPiece().getType() == PieceType.ROOK) {
+            rook = leftFinalPosition.getPiece();
+            board.clearTile(leftFinalPosition.getPosition());
+            rook.setPosition(new Point(0, end.y));
+            board.getTile(0, end.y).setPiece(rook);
+        } else if (!rightFinalPosition.isEmpty() && rightFinalPosition.getPiece().getType() == PieceType.ROOK) {
+            rook = rightFinalPosition.getPiece();
+            board.clearTile(rightFinalPosition.getPosition());
+            rook.setPosition(new Point(7, end.y));
+            board.getTile(7, end.y).setPiece(rook);
+        }
+
+        board.clearTile(end);
+        king.setPosition(start);
+        board.getTile(start).setPiece(king);
     }
 
     @Override

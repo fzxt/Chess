@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
     public Rook(Team team, Point position){
-        super(team, 5, PieceType.ROOK, position);
+        super(team, 50, PieceType.ROOK, position);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean[] positionThreats() {
-        return new boolean[]{false, true, false, true, true, false, true, false};
+        return new boolean[] { false, true, false, true, true, false, true, false };
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.awt.Point;
 
 public class Tile {
 
-    public Tile deepCopy() {
+    public Tile copy() {
         return new Tile(this);
     }
 
@@ -69,10 +69,6 @@ public class Tile {
 
     public Point getPosition() {
         return position;
-    }
-
-    public Point getPiecePosition() {
-        return this.piece.getPosition();
     }
 
     public boolean isEmpty() {
