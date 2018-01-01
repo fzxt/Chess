@@ -123,11 +123,7 @@ public class AI {
     }
 
     private Team switchTeam(Team team) {
-        if (team == Team.WHITE) {
-            return Team.BLACK;
-        }
-
-        return Team.WHITE;
+        return team == Team.WHITE ? Team.BLACK : Team.WHITE;
     }
 
 }

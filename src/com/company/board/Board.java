@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import static com.company.board.Tile.TILE_HIGHLIGHT.NONE;
+import static com.company.piece.PieceType.*;
 
 public class Board {
 
@@ -175,16 +176,18 @@ public class Board {
                                 for (Move move : moves) {
                                     if (!getTile(move.end).isEmpty()) {
                                         Piece potentialKing = getTile(move.end).getPiece();
-                                        if (potentialKing.getType() == PieceType.KING && potentialKing.getTeam() == goodTeam) {
+                                        if (potentialKing.getType() == KING && potentialKing.getTeam() == goodTeam) {
                                             return true;
                                         }
                                     }
                                 }
-                            } else if (piece.getType() != PieceType.PAWN && piece.getType() != PieceType.KING) {
+                            } else if (step > 0 && (piece.getType() != PAWN && piece.getType() != KING)) {
                                 if (piece.positionThreats()[direction]) return true;
-                            } else if (step == 0) {
-                                if (piece.positionThreats()[direction]) return true;
-                            }
+                              } else {
+                                    if (step == 0) {
+                                        if (piece.positionThreats()[direction]) return true;
+                                    }
+                              }
                         }
 
                         break;
