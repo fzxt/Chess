@@ -5,6 +5,7 @@
 ## Prerequisites
 
 - You'll need Java 8 installed on your machine
+- If you wish to run the unit tests (in `tests/` directory), you'll need JUnit 5
 
 ## About
 
@@ -14,9 +15,21 @@ AI vs Human 2D Chess written in Java with Swing. AI based on Alpha Beta Pruning
 
 - This game does not support loading custom boards.
 
-### Rules
+## Gameplay
 
 - AI is Team Black, User is Team White
+- User (White) goes first
+
+### Moving
+
+- To show available moves, click the piece you wish to move when it's your turn
+- Then click where you want to move the tile
+- Normal moves are blue, Attack moves are red, special moves are yellow.
+- If someone is in check, their king will be highlighted orange.
+
+### Gameover
+
+- When the game is over, a dark overlay will show on the screen and the winner is printed to the console
 
 ## Compiling, running
 
@@ -25,7 +38,7 @@ AI vs Human 2D Chess written in Java with Swing. AI based on Alpha Beta Pruning
 ## With IDE
 
 - You'll need to import the project in your editor
-- Right click `src/Game.java`, and run the file.
+- Right click `src/com/company/Game.java`, and run the file.
 
 ## With Command line
 
