@@ -1,6 +1,12 @@
 # Chess Project
 
-[![Build Status](https://travis-ci.com/fzxt/Chess.svg?token=TT9qSQ7v8Pwz8MWFLCnw&branch=master)](https://travis-ci.com/fzxt/Chess)
+![Gameplay](screenshots/game.png)
+
+<div align="center">
+  <a href="https://travis-ci.com/fzxt/Chess">
+  <img src="https://travis-ci.com/fzxt/Chess.svg?token=TT9qSQ7v8Pwz8MWFLCnw&amp;branch=master" alt="Build Status">
+</a>
+</div>
 
 ## Prerequisites
 
