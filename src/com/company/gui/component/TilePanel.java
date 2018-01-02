@@ -23,11 +23,11 @@ public class TilePanel extends JPanel {
             GUIUtils utils = new GUIUtils();
             this.tile = tile;
             String tileImageIconPath = utils.getTileIconPath(tile.getColor());
-            tileImage = ImageIO.read(new File(getClass().getClassLoader().getResource(tileImageIconPath).getFile()));
+            tileImage = ImageIO.read(new File("resources/"+tileImageIconPath));
             if (!tile.isEmpty()) {
                 Piece piece = tile.getPiece();
                 String pieceImageIconPath = utils.getPieceIcon(piece.getTeam(), piece.getType());
-                pieceImage = ImageIO.read(new File(getClass().getClassLoader().getResource(pieceImageIconPath).getFile()));
+                pieceImage = ImageIO.read(new File("resources/"+pieceImageIconPath));
             }
 
             if (tile.getHighlight() != Tile.TILE_HIGHLIGHT.NONE) {
