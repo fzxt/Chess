@@ -7,6 +7,7 @@ import com.company.gui.promotion.PromotionPresenter;
 import com.company.gui.promotion.PromotionView;
 
 import javax.swing.*;
+import java.util.Scanner;
 
 public class Game {
 
@@ -14,9 +15,9 @@ public class Game {
     BoardPresenter boardPresenter;
     PromotionPresenter promotionPresenter;
 
-    public Game() {
+    public Game(int depth) {
         gameManager = GameManager.getInstance();
-        AI ai = new AI(4);
+        AI ai = new AI(depth);
         boardPresenter = new BoardPresenter(new BoardView(), gameManager, this, ai);
     }
 
@@ -31,7 +32,25 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Game::new);
+        int depth = 0;
+        while (true) {
+            depth = askUserForDepth();
+            if (depth >= 1 && depth <= 4) {
+                break;
+            } else {
+                System.out.println("Invalid, please enter between 1 - 4 for depth");
+            }
+        }
+
+        int finalDepth = depth;
+        SwingUtilities.invokeLater(() -> new Game(finalDepth));
     }
+
+    private static int askUserForDepth() {
+        Scanner s = new Scanner(System.in);
+        System.out.print("What depth would you like for the AI? (max 4): ");
+        return s.nextInt();
+    }
+
 
 }
