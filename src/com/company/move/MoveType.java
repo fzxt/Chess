@@ -5,6 +5,10 @@
  */
 package com.company.move;
 
+/**
+ * Move types
+ */
+
 public enum MoveType {
     NORMAL,
     NORMAL_DOUBLE,

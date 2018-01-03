@@ -2,6 +2,10 @@ package com.company.move;
 
 import java.util.Stack;
 
+/**
+ * Singleton object which keeps track of the move history
+ */
+
 public class MoveHistory {
     private static MoveHistory instance = null;
     private  Stack<Move> moveList = new Stack<>();

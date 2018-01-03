@@ -17,6 +17,8 @@ import static com.company.board.Tile.TILE_HIGHLIGHT.*;
 import static com.company.move.MoveType.*;
 import static com.company.piece.PieceType.*;
 
+// See interface (BoardGUIContract) for comments
+
 public class BoardPresenter implements BoardGUIContract.Presenter {
     private final BoardGUIContract.View view;
     private final GameManager gameManager;

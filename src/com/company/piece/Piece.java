@@ -18,6 +18,13 @@ public abstract class Piece {
     private Point position;
     private int numMoves;
 
+    /**
+     * Piece object
+     * @param team      team the piece is on
+     * @param value     value of the piece (used for AI, scoring)
+     * @param type      type of piece, rook, pawn etc
+     * @param position  start position of the piece
+     */
     public Piece(Team team, int value, PieceType type, Point position) {
         this.team = team;
         this.value = value;
@@ -42,6 +49,10 @@ public abstract class Piece {
         return this.position;
     }
 
+    /**
+     * updates position of the piece, adds to movehistory
+     * @param move
+     */
     public void move(Move move) {
         if (type == PieceType.KING) {
             GameManager.getInstance().updateKingPosition(this);
@@ -59,6 +70,12 @@ public abstract class Piece {
         return numMoves;
     }
 
+    /**
+     * Finds the moves in line, useful for queens, rooks and bishops
+     * @param board                 board to search
+     * @param directionOffsets      array of x, y pairs to search (-1, -1) for bottom diag etc
+     * @return
+     */
     public ArrayList<Move> getMovesInLine(Board board, int[][] directionOffsets) {
         ArrayList<Move> moves = new ArrayList<>();
         for (int[] offset : directionOffsets) {
@@ -85,7 +102,6 @@ public abstract class Piece {
 
         return moves;
     }
-
 
     public boolean sameTeam(Piece piece){
         return this.getTeam() == piece.getTeam();

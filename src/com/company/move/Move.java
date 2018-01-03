@@ -9,7 +9,13 @@ public abstract class Move {
     public Point start;
     public Point end;
     private MoveType type;
-    
+
+    /**
+     * Move constructor
+     * @param start     start position (where is the piece now)
+     * @param end       end position of move (where you want the piece to end up)
+     * @param type      type of move, attack, special, enpassant, etc
+     */
     public Move(Point start, Point end, MoveType type){
         this.start = start;
         this.end = end;
@@ -34,10 +40,18 @@ public abstract class Move {
         return false;
     }
 
+    /**
+     * Method to handle a move
+     * @param board     board to handle move on, change
+     */
     public void handleMove(Board board) {
         board.handleMove(this);
     }
 
+    /**
+     * Gets the tile highlight for the GUI
+     * @return          tile highlight
+     */
     public abstract Tile.TILE_HIGHLIGHT getTileHighlight();
 
     @Override

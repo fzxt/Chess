@@ -6,6 +6,10 @@ import com.company.piece.Piece;
 
 import java.awt.*;
 
+/**
+ * Class which represents a move to move a piece to an empty tile
+ */
+
 public class NormalMove extends Move {
 
     public NormalMove(Point start, Point end) {

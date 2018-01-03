@@ -14,6 +14,9 @@ import java.util.HashMap;
 import static com.company.board.Tile.TILE_TYPE.*;
 import static com.company.gui.ColorConstants.*;
 
+/**
+ * Utility functions, specifically for loading game resources
+ */
 
 public class GUIUtils {
 

@@ -12,6 +12,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The BoardView is essentially a 2D matrix of TilePanels.
+ * TilePanels show two images, the tileImage on as the bg
+ * and the pieceImage in the center
+ */
+
 public class TilePanel extends JPanel {
 
     private BufferedImage pieceImage;

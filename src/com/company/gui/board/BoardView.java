@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// See interface (BoardGUIContract) for comments
+
 public class BoardView extends MouseAdapter implements BoardGUIContract.View  {
 
     private final Dimension WINDOW_DIMENSIONS = new Dimension(650, 650);

@@ -4,6 +4,10 @@ import com.company.piece.Piece;
 
 import java.util.ArrayList;
 
+/**
+ * Class which represents a Player, holds a list of pieces
+ */
+
 public class Player {
 
     Team team;

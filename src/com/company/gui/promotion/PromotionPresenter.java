@@ -6,6 +6,8 @@ import com.company.Team;
 import com.company.board.Tile;
 import com.company.piece.Piece;
 
+// See interface (PromotionGUIContract) for comments
+
 public class PromotionPresenter implements PromotionGUIContract.Presenter {
 
     private final PromotionGUIContract.View view;

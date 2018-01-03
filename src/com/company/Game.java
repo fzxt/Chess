@@ -9,6 +9,10 @@ import com.company.gui.promotion.PromotionView;
 import javax.swing.*;
 import java.util.Scanner;
 
+/**
+ * Entry point of the program
+ */
+
 public class Game {
 
     GameManager gameManager;

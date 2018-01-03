@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// See interface (PromotionGUIContract) for comments
+
 public class PromotionView extends MouseAdapter implements PromotionGUIContract.View {
 
     private final JFrame frame;
