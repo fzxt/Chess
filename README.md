@@ -78,3 +78,6 @@ $ javac -d bin -sourcepath src/ src/com/company/Game.java
 ```sh
 $ java -cp bin/ com.company.Game
 ```
+
+## Credits
+- I did not make any assets for the game, they are not mine. Unfortunately, I do not remember where I got them. I believe I googled something like "Flat design chess piece set". If you know the original author, please let me know so I can amend it.
