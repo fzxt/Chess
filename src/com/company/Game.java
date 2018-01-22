@@ -14,7 +14,12 @@ import java.util.Scanner;
  */
 
 public class Game {
+    
+    //I know your gonna get this to work with giant depths so you need it configurable!!
+    public static final int MAX_DEPTH = 4;
+    public static final int MIN_DEPTH = 1;
 
+    //Getters and setters?? Hughes would be so sad :(
     GameManager gameManager;
     BoardPresenter boardPresenter;
     PromotionPresenter promotionPresenter;
@@ -31,6 +36,9 @@ public class Game {
         promotionPresenter.loadView();
     }
 
+    /**
+        Unpauses the boardPresenter, not the Game. Despite this method being in Game. I am a lying method. I lie.
+    */
     public void unpause() {
         boardPresenter.unpause();
     }
@@ -39,20 +47,20 @@ public class Game {
         int depth = 0;
         while (true) {
             depth = askUserForDepth();
-            if (depth >= 1 && depth <= 4) {
+            if (depth >= MIN_DEPTH && depth <= MAX_DEPTH) {
                 break;
             } else {
-                System.out.println("Invalid, please enter between 1 - 4 for depth");
+                System.out.printf("Invalid, please enter between %d - %d for depth %n",MIN_DEPTH,MAX_DEPTH);
             }
         }
 
-        int finalDepth = depth;
-        SwingUtilities.invokeLater(() -> new Game(finalDepth));
+        //int finalDepth = depth; No need
+        SwingUtilities.invokeLater(() -> new Game(depth));
     }
 
     private static int askUserForDepth() {
         Scanner s = new Scanner(System.in);
-        System.out.print("What depth would you like for the AI? (max 4): ");
+        System.out.printf("What depth would you like for the AI? (max %d): ", MAX_DEPTH);
         return s.nextInt();
     }
 
