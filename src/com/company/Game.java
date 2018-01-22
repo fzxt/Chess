@@ -15,11 +15,9 @@ import java.util.Scanner;
 
 public class Game {
     
-    //I know your gonna get this to work with giant depths so you need it configurable!!
     public static final int MAX_DEPTH = 4;
     public static final int MIN_DEPTH = 1;
 
-    //Getters and setters?? Hughes would be so sad :(
     GameManager gameManager;
     BoardPresenter boardPresenter;
     PromotionPresenter promotionPresenter;
@@ -37,7 +35,7 @@ public class Game {
     }
 
     /**
-        Unpauses the boardPresenter, not the Game. Despite this method being in Game. I am a lying method. I lie.
+    *  Unpauses the boardPresenter, not the Game. Despite this method being in Game. I am a lying method. I lie.
     */
     public void unpause() {
         boardPresenter.unpause();
@@ -54,7 +52,6 @@ public class Game {
             }
         }
 
-        //int finalDepth = depth; No need
         SwingUtilities.invokeLater(() -> new Game(depth));
     }
 

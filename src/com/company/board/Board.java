@@ -105,7 +105,7 @@ public class Board {
     }
 
     public void handleMove(Move move) {
-        Tile start = getTile(move.start);
+        Tile start = getTile(move.getStart());
         Tile end = getTile(move.getEnd());
         Piece pieceToMove = start.getPiece();
         pieceToMove.move(move);
