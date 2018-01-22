@@ -29,6 +29,10 @@ public abstract class Move {
     public Point getEnd() {
         return this.end;
     }
+    
+    public Point getStart(){
+        return this.start;   
+    }
 
     @Override
     public boolean equals(Object obj) {
